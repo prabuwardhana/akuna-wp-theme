@@ -25,6 +25,15 @@ add_action('akuna_header_secondary', 'akuna_secondary_navigation', 30);
 add_action('akuna_header_secondary', 'akuna_secondary_nav_container_close', 50);
 
 /**
+ * Footer
+ *
+ * @see  akuna_footer_widgets()
+ * @see  akuna_credit()
+ */
+add_action('akuna_footer', 'akuna_footer_widgets', 10);
+add_action('akuna_footer', 'akuna_credit', 30);
+
+/**
  * Posts
  *
  * @see  akuna_post_header()

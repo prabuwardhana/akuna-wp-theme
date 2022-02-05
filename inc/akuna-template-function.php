@@ -83,7 +83,7 @@ if (!function_exists('akuna_site_branding')) {
         <div class="site-branding header-item">
             <?php akuna_site_title_or_logo(); ?>
         </div>
-    <?php
+        <?php
     }
 }
 
@@ -135,6 +135,80 @@ if (!function_exists('akuna_secondary_nav_container_close')) {
     function akuna_secondary_nav_container_close()
     {
         echo '</div>';
+    }
+}
+
+if (!function_exists('akuna_footer_widgets')) {
+    /**
+     * Display the footer widget regions.
+     *
+     * @since  1.0.0
+     */
+    function akuna_footer_widgets()
+    {
+        $rows    = intval(apply_filters('akuna_footer_widget_rows', 1));
+        $regions = intval(apply_filters('akuna_footer_widget_columns', 4));
+
+        for ($row = 1; $row <= $rows; $row++) :
+
+            // Defines the number of active columns in this footer row.
+            for ($region = $regions; 0 < $region; $region--) {
+                if (is_active_sidebar('footer-' . esc_attr($region + $regions * ($row - 1)))) {
+                    $columns = $region;
+                    break;
+                }
+            }
+
+            if (isset($columns)) :
+        ?>
+                <div class=<?php echo '"footer-widgets row-' . esc_attr($row) . ' col-' . esc_attr($columns) . ' fix"'; ?>>
+                    <?php
+                    for ($column = 1; $column <= $columns; $column++) :
+                        $footer_n = $column + $regions * ($row - 1);
+
+                        if (is_active_sidebar('footer-' . esc_attr($footer_n))) :
+                    ?>
+                            <div class="block footer-widget-<?php echo esc_attr($column); ?>">
+                                <?php dynamic_sidebar('footer-' . esc_attr($footer_n)); ?>
+                            </div>
+                    <?php
+                        endif;
+                    endfor;
+                    ?>
+                </div><!-- .footer-widgets.row-<?php echo esc_attr($row); ?> -->
+        <?php
+                unset($columns);
+            endif;
+        endfor;
+    }
+}
+
+if (!function_exists('akuna_credit')) {
+    /**
+     * Display the theme credit
+     *
+     * @since  1.0.0
+     */
+    function akuna_credit()
+    {
+        $links_output = '';
+
+        if (apply_filters('akuna_privacy_policy_link', true) && function_exists('the_privacy_policy_link')) {
+            $separator    = '<span role="separator" aria-hidden="true"></span>';
+            $links_output = get_the_privacy_policy_link('', (!empty($links_output) ? $separator : '')) . $links_output;
+        }
+
+        $links_output = apply_filters('akuna_credit_links_output', $links_output);
+        ?>
+        <div class="site-info">
+            <?php echo esc_html(apply_filters('akuna_copyright_text', $content = '&copy; ' . get_bloginfo('name') . ' ' . gmdate('Y'))); ?>
+
+            <?php if (!empty($links_output)) { ?>
+                <br />
+                <?php echo wp_kses_post($links_output); ?>
+            <?php } ?>
+        </div><!-- .site-info -->
+    <?php
     }
 }
 
