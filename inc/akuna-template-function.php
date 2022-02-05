@@ -6,6 +6,138 @@
  * @package akuna
  */
 
+if (!function_exists('akuna_header_container')) {
+    /**
+     * The header container
+     */
+    function akuna_header_container()
+    {
+        echo '<div class="header-container">';
+    }
+}
+
+if (!function_exists('akuna_header_container_close')) {
+    /**
+     * The header container close
+     */
+    function akuna_header_container_close()
+    {
+        echo '</div>';
+    }
+}
+
+if (!function_exists('akuna_primary_navigation_wrapper')) {
+    /**
+     * The primary navigation wrapper
+     */
+    function akuna_primary_navigation_wrapper()
+    {
+        echo '<div class="akuna-primary-navigation header-item">';
+    }
+}
+
+if (!function_exists('akuna_primary_navigation_wrapper_close')) {
+    /**
+     * The primary navigation wrapper close
+     */
+    function akuna_primary_navigation_wrapper_close()
+    {
+        echo '</div>';
+    }
+}
+
+if (!function_exists('akuna_primary_navigation')) {
+    /**
+     * Display Primary Navigation
+     *
+     * @since  1.0.0
+     */
+    function akuna_primary_navigation()
+    {
+?>
+        <!-- #site-navigation -->
+        <div class="menu-mobile-toggle">
+            <svg height="32px" id="menu-btn" viewBox="0 0 32 32">
+                <path fill="black" d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,22,28,22z" />
+            </svg>
+        </div>
+    <?php
+        wp_nav_menu(
+            array(
+                'theme_location'  => 'primary',
+                'container_class' => 'primary-navigation',
+            )
+        );
+    }
+}
+
+if (!function_exists('akuna_site_branding')) {
+    /**
+     * Site branding wrapper and display
+     *
+     * @since  1.0.0
+     */
+    function akuna_site_branding()
+    {
+    ?>
+        <div class="site-branding header-item">
+            <?php akuna_site_title_or_logo(); ?>
+        </div>
+    <?php
+    }
+}
+
+if (!function_exists('akuna_site_title_or_logo')) {
+    /**
+     * Display the site title or logo
+     *
+     * @since 1.0.0
+     * @param bool $echo Echo the string or return it.
+     * @return string
+     */
+    function akuna_site_title_or_logo($echo = true)
+    {
+        if (function_exists('the_custom_logo') && has_custom_logo()) {
+            $logo = get_custom_logo();
+            $html = is_home() ? '<h1 class="logo">' . $logo . '</h1>' : $logo;
+        } else {
+            $tag = is_home() ? 'h1' : 'div';
+
+            $html = '<' . esc_attr($tag) . ' class="beta site-title"><a href="' . esc_url(home_url('/')) . '" rel="home">' . esc_html(get_bloginfo('name')) . '</a></' . esc_attr($tag) . '>';
+
+            if ('' !== get_bloginfo('description')) {
+                $html .= '<p class="site-description" style="display:none;">' . esc_html(get_bloginfo('description', 'display')) . '</p>';
+            }
+        }
+
+        if (!$echo) {
+            return $html;
+        }
+
+        echo $html;
+    }
+}
+
+if (!function_exists('akuna_secondary_nav_container')) {
+    /**
+     * The header container
+     */
+    function akuna_secondary_nav_container()
+    {
+        echo '<div class="akuna-secondary-navigation">';
+    }
+}
+
+if (!function_exists('akuna_secondary_nav_container_close')) {
+    /**
+     * The header container close
+     */
+    function akuna_secondary_nav_container_close()
+    {
+        echo '</div>';
+    }
+}
+
 if (!function_exists('akuna_post_meta')) {
     /**
      * Display the post meta
@@ -90,7 +222,7 @@ if (!function_exists('akuna_post_header')) {
      */
     function akuna_post_header()
     {
-?>
+    ?>
         <header class="entry-header">
             <?php
 
@@ -177,7 +309,7 @@ if (!function_exists('akuna_post_taxonomy')) {
     /**
      * Display the post taxonomies
      *
-     * @since 2.4.0
+     * @since 1.0.0
      */
     function akuna_post_taxonomy()
     {
