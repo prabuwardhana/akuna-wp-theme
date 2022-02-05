@@ -26,3 +26,4 @@ $akuna = (object) array(
 require 'inc/akuna-functions.php';
 require 'inc/akuna-template-hooks.php';
 require 'inc/akuna-template-functions.php';
+require 'inc/wordpress-shims.php';
