@@ -45,3 +45,18 @@ add_action('akuna_loop_post', 'akuna_post_header', 10);
 add_action('akuna_loop_post', 'akuna_post_content', 30);
 add_action('akuna_loop_post', 'akuna_post_taxonomy', 50);
 add_action('akuna_loop_after', 'akuna_paging_nav', 10);
+
+/**
+ * Pages
+ *
+ * @see  akuna_page_header()
+ * @see  akuna_page_content()
+ * @see  akuna_edit_post_link()
+ * @see  akuna_display_comments()
+ */
+add_action('akuna_page', 'akuna_page_header', 10);
+add_action('akuna_page', 'akuna_page_content', 30);
+add_action('akuna_page', 'akuna_edit_post_link', 50);
+add_action('akuna_page_after', 'akuna_display_comments', 10);
+add_action('akuna_page_no_title', 'akuna_page_content', 10);
+add_action('akuna_page_no_title', 'akuna_edit_post_link', 30);

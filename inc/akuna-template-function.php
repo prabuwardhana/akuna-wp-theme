@@ -408,7 +408,7 @@ if (!function_exists('akuna_post_taxonomy')) {
             <?php endif; ?>
         </aside>
 
-<?php
+    <?php
     }
 }
 
@@ -427,5 +427,79 @@ if (!function_exists('akuna_paging_nav')) {
         );
 
         the_posts_pagination($args);
+    }
+}
+
+if (!function_exists('akuna_edit_post_link')) {
+    /**
+     * Display the edit link
+     *
+     * @since 2.5.0
+     */
+    function akuna_edit_post_link()
+    {
+        edit_post_link(
+            sprintf(
+                wp_kses(
+                    /* translators: %s: Name of current post. Only visible to screen readers */
+                    __('Edit <span class="screen-reader-text">%s</span>', 'akuna'),
+                    array(
+                        'span' => array(
+                            'class' => array(),
+                        ),
+                    )
+                ),
+                get_the_title()
+            ),
+            '<div class="edit-link">',
+            '</div>'
+        );
+    }
+}
+
+if (!function_exists('akuna_page_header')) {
+    /**
+     * Display the page header
+     *
+     * @since 1.0.0
+     */
+    function akuna_page_header()
+    {
+        if (is_front_page() && is_page_template('template-fullwidth.php')) {
+            return;
+        }
+
+    ?>
+        <header class="entry-header">
+            <?php
+            akuna_post_thumbnail('full');
+            the_title('<h1 class="entry-title">', '</h1>');
+            ?>
+        </header><!-- .entry-header -->
+    <?php
+    }
+}
+
+if (!function_exists('akuna_page_content')) {
+    /**
+     * Display the post content
+     *
+     * @since 1.0.0
+     */
+    function akuna_page_content()
+    {
+    ?>
+        <div class="entry-content">
+            <?php the_content(); ?>
+            <?php
+            wp_link_pages(
+                array(
+                    'before' => '<div class="page-links">' . __('Pages:', 'akuna'),
+                    'after'  => '</div>',
+                )
+            );
+            ?>
+        </div><!-- .entry-content -->
+<?php
     }
 }
