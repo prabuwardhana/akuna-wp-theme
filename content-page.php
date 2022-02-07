@@ -15,7 +15,7 @@
      *
      * @hooked akuna_page_header          - 10
      * @hooked akuna_page_content         - 30
-     * @hooked akuna_page_content         - 50
+     * @hooked akuna_edit_post_link       - 50
      */
     do_action('akuna_page');
     ?>

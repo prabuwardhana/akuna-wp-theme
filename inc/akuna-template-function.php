@@ -430,11 +430,98 @@ if (!function_exists('akuna_paging_nav')) {
     }
 }
 
+if (!function_exists('akuna_post_nav')) {
+    /**
+     * Display navigation to next/previous post when applicable.
+     */
+    function akuna_post_nav()
+    {
+        $args = array(
+            'next_text' => '<span class="screen-reader-text">' . esc_html__('Next post:', 'akuna') . ' </span>%title',
+            'prev_text' => '<span class="screen-reader-text">' . esc_html__('Previous post:', 'akuna') . ' </span>%title',
+        );
+        the_post_navigation($args);
+    }
+}
+
+if (!function_exists('akuna_post_header')) {
+    /**
+     * Display the post header with a link to the single post
+     *
+     * @since 1.0.0
+     */
+    function akuna_post_header()
+    {
+    ?>
+        <header class="entry-header">
+            <?php
+
+            /**
+             * Functions hooked in to akuna_post_header_before action.
+             *
+             * @hooked akuna_post_meta - 10
+             */
+            do_action('akuna_post_header_before');
+
+            if (is_single()) {
+                the_title('<h1 class="entry-title">', '</h1>');
+            } else {
+                the_title(sprintf('<h2 class="alpha entry-title"><a href="%s" rel="bookmark">', esc_url(get_permalink())), '</a></h2>');
+            }
+
+            do_action('akuna_post_header_after');
+            ?>
+        </header><!-- .entry-header -->
+    <?php
+    }
+}
+
+if (!function_exists('akuna_post_content')) {
+    /**
+     * Display the post content with a link to the single post
+     *
+     * @since 1.0.0
+     */
+    function akuna_post_content()
+    {
+    ?>
+        <div class="entry-content">
+            <?php
+
+            /**
+             * Functions hooked in to akuna_post_content_before action.
+             *
+             * @hooked akuna_post_thumbnail - 10
+             */
+            do_action('akuna_post_content_before');
+
+            the_content(
+                sprintf(
+                    /* translators: %s: post title */
+                    __('Continue reading %s', 'akuna'),
+                    '<span class="screen-reader-text">' . get_the_title() . '</span>'
+                )
+            );
+
+            do_action('akuna_post_content_after');
+
+            wp_link_pages(
+                array(
+                    'before' => '<div class="page-links">' . __('Pages:', 'akuna'),
+                    'after'  => '</div>',
+                )
+            );
+            ?>
+        </div><!-- .entry-content -->
+    <?php
+    }
+}
+
 if (!function_exists('akuna_edit_post_link')) {
     /**
      * Display the edit link
      *
-     * @since 2.5.0
+     * @since 1.0.0
      */
     function akuna_edit_post_link()
     {
@@ -454,6 +541,21 @@ if (!function_exists('akuna_edit_post_link')) {
             '<div class="edit-link">',
             '</div>'
         );
+    }
+}
+
+if (!function_exists('akuna_display_comments')) {
+    /**
+     * akuna display comments
+     *
+     * @since  1.0.0
+     */
+    function akuna_display_comments()
+    {
+        // If comments are open or we have at least one comment, load up the comment template.
+        if (comments_open() || 0 !== intval(get_comments_number())) :
+            comments_template();
+        endif;
     }
 }
 

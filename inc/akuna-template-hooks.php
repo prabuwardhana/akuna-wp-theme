@@ -45,6 +45,12 @@ add_action('akuna_loop_post', 'akuna_post_header', 10);
 add_action('akuna_loop_post', 'akuna_post_content', 30);
 add_action('akuna_loop_post', 'akuna_post_taxonomy', 50);
 add_action('akuna_loop_after', 'akuna_paging_nav', 10);
+add_action('akuna_single_post', 'akuna_post_header', 10);
+add_action('akuna_single_post', 'akuna_post_content', 30);
+add_action('akuna_single_post_bottom', 'akuna_edit_post_link', 10);
+add_action('akuna_single_post_bottom', 'akuna_post_taxonomy', 30);
+add_action('akuna_single_post_bottom', 'akuna_post_nav', 50);
+add_action('akuna_single_post_bottom', 'akuna_display_comments', 70);
 
 /**
  * Pages
