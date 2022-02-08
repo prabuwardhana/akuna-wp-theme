@@ -6,6 +6,8 @@
  * @package akuna
  */
 
+define('SCRIPT_DEBUG', true);
+
 /**
  * Assign the akuna version to a var
  */
