@@ -77,4 +77,9 @@
             <div class="col-full">
 
                 <?php
+                /**
+                 * Functions hooked in to akuna_homepage_hero
+                 *
+                 * @hooked akuna_shop_messages      - 15
+                 */
                 do_action('akuna_content_top');
