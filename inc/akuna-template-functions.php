@@ -602,6 +602,64 @@ if (!function_exists('akuna_page_content')) {
             );
             ?>
         </div><!-- .entry-content -->
+    <?php
+    }
+}
+
+if (!function_exists('akuna_hero_image_slider')) {
+    /**
+     * Display the page header without the featured image
+     *
+     * @since 1.0.0
+     */
+    function akuna_hero_image_slider()
+    {
+        // Theme_mod settings to check.
+        $settings = get_theme_mod('slider_settings');
+    ?>
+        <section class="entry-header">
+            <div class="slider">
+                <?php foreach ($settings as $setting) : ?>
+                    <div class="slide active">
+                        <img src="<?php echo esc_url($setting['background_img']) ?>" alt="<?php echo $setting['heading_text'] ?>">
+                        <div class="info">
+                            <h2><?php echo $setting['heading_text'] ?></h2>
+                            <p><?php echo $setting['sub_heading_text'] ?></p>
+                            <a href="<?php echo esc_url(get_page_link($setting['button_page_link'])); ?>" class="button alt">
+                                <?php echo $setting['button_text'] ?>
+                            </a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+                <div class="navigation">
+                    <i class="fas fa-chevron-left prev-btn"></i>
+                    <i class="fas fa-chevron-right next-btn"></i>
+                </div>
+                <div class="navigation-visibility">
+                    <?php foreach ($settings as $setting) : ?>
+                        <div class="slide-icon"></div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section><!-- .entry-header -->
 <?php
+    }
+}
+
+if (!function_exists('akuna_homepage_content')) {
+    /**
+     * Display homepage content
+     * Hooked into the `homepage` action in the homepage template
+     *
+     * @since  1.0.0
+     * @return  void
+     */
+    function akuna_homepage_content()
+    {
+        while (have_posts()) {
+            the_post();
+
+            get_template_part('content', 'homepage');
+        } // end of the loop.
     }
 }

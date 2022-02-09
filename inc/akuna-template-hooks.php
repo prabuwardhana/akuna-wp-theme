@@ -53,6 +53,22 @@ add_action('akuna_single_post_bottom', 'akuna_post_nav', 50);
 add_action('akuna_single_post_bottom', 'akuna_display_comments', 70);
 
 /**
+ * Homepage
+ *
+ * @see  akuna_homepage_content()
+ */
+add_action('homepage', 'akuna_homepage_content', 10);
+
+/**
+ * Homepage Page Template
+ *
+ * @see  akuna_hero_image_slider()
+ * @see  akuna_page_content()
+ */
+add_action('akuna_homepage_hero', 'akuna_hero_image_slider', 10);
+add_action('akuna_homepage', 'akuna_page_content', 10);
+
+/**
  * Pages
  *
  * @see  akuna_page_header()
