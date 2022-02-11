@@ -33,4 +33,7 @@ require 'inc/wordpress-shims.php';
 
 if (akuna_is_woocommerce_activated()) {
     $akuna->woocommerce            = require 'inc/woocommerce/class-akuna-woocommerce.php';
+
+    require 'inc/woocommerce/akuna-woocommerce-template-hooks.php';
+    require 'inc/woocommerce/akuna-woocommerce-template-functions.php';
 }
