@@ -103,7 +103,7 @@ if (!function_exists('akuna_site_title_or_logo')) {
         } else {
             $tag = is_home() ? 'h1' : 'div';
 
-            $html = '<' . esc_attr($tag) . ' class="beta site-title"><a href="' . esc_url(home_url('/')) . '" rel="home">' . esc_html(get_bloginfo('name')) . '</a></' . esc_attr($tag) . '>';
+            $html = '<' . esc_attr($tag) . ' class="site-title"><a href="' . esc_url(home_url('/')) . '" rel="home">' . esc_html(get_bloginfo('name')) . '</a></' . esc_attr($tag) . '>';
 
             if ('' !== get_bloginfo('description')) {
                 $html .= '<p class="site-description" style="display:none;">' . esc_html(get_bloginfo('description', 'display')) . '</p>';

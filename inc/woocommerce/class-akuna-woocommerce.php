@@ -142,7 +142,7 @@ if (!class_exists('akuna_WooCommerce')) :
             wp_register_script('akuna-header-cart', get_template_directory_uri() . '/assets/js/woocommerce/header-cart' . $suffix . '.js', array(), $akuna_version, true);
             wp_enqueue_script('akuna-header-cart');
 
-            wp_enqueue_script('akuna-handheld-footer-bar', get_template_directory_uri() . '/assets/js/footer' . $suffix . '.js', array(), $akuna_version, true);
+            wp_enqueue_script('akuna-handheld-footer-bar', get_template_directory_uri() . '/assets/js/footer.min.js', array(), $akuna_version, true);
 
             if (is_product()) {
                 wp_register_script('akuna-sticky-add-to-cart', get_template_directory_uri() . '/assets/js/sticky-add-to-cart' . $suffix . '.js', array(), $akuna_version, true);

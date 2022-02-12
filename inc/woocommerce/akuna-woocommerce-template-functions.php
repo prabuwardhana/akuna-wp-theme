@@ -349,6 +349,334 @@ if (!function_exists('akuna_before_content')) {
                 </div>
             </div>
         </section><!-- .akuna-sticky-add-to-cart -->
+        <?php
+        }
+    }
+
+    if (!function_exists('akuna_review_header_text')) {
+        /**
+         * Change default review header text
+         *
+         * @return string translated text
+         */
+        function akuna_review_header_text($translated, $text, $domain)
+        {
+            return 'Ratings and Reviews';
+        }
+    }
+
+    if (!function_exists('akuna_review_header_text')) {
+        /**
+         * Change default review header text
+         *
+         * @return string translated text
+         */
+        function akuna_review_header_text($translated, $text, $domain)
+        {
+            return 'Ratings and Reviews';
+        }
+    }
+
+    if (!function_exists('akuna_no_review_header_text')) {
+        /**
+         * Change default review header text
+         *
+         * @return string translated text
+         */
+        function akuna_no_review_header_text($translated, $text, $domain)
+        {
+            if (function_exists('is_product') && is_product() && $text == 'Reviews' && $domain == 'woocommerce') {
+                $translated = esc_html__('Ratings and Reviews', $domain);
+            }
+            return $translated;
+        }
+    }
+
+    if (!function_exists('akuna_upsell_header_text')) {
+        /**
+         * Change default related product header text
+         *
+         * @return string translated text
+         */
+        function akuna_upsell_header_text($translated, $text, $domain)
+        {
+            if (function_exists('is_product') && is_product() && $text === 'Related products' && $domain === 'woocommerce') {
+                $translated = esc_html__('Discover more', $domain);
+            }
+            return $translated;
+        }
+    }
+
+    if (!function_exists('akuna_product_search')) {
+        /**
+         * Display Product Search
+         *
+         * @since  1.0.0
+         * @uses  akuna_is_woocommerce_activated() check if WooCommerce is activated
+         * @return void
+         */
+        function akuna_product_search()
+        {
+            if (akuna_is_woocommerce_activated()) {
+        ?>
+            <div class="site-search">
+                <?php the_widget('WC_Widget_Product_Search', 'title='); ?>
+            </div>
+        <?php
+            }
+        }
+    }
+
+    if (!function_exists('akuna_woo_cart_available')) {
+        /**
+         * Validates whether the Woo Cart instance is available in the request
+         *
+         * @since 1.0.0
+         * @return bool
+         */
+        function akuna_woo_cart_available()
+        {
+            $woo = WC();
+            return $woo instanceof \WooCommerce && $woo->cart instanceof \WC_Cart;
+        }
+    }
+
+    if (!function_exists('akuna_handheld_footer_bar')) {
+        /**
+         * Display a menu intended for use on handheld devices
+         *
+         * @since 1.0.0
+         */
+        function akuna_handheld_footer_bar()
+        {
+            $links = array(
+                'my-account' => array(
+                    'priority' => 10,
+                    'callback' => 'akuna_handheld_footer_bar_account_link',
+                ),
+                'search'     => array(
+                    'priority' => 20,
+                    'callback' => 'akuna_handheld_footer_bar_search',
+                ),
+                'cart'       => array(
+                    'priority' => 30,
+                    'callback' => 'akuna_handheld_footer_bar_cart_link',
+                ),
+            );
+
+            if (did_action('woocommerce_blocks_enqueue_cart_block_scripts_after') || did_action('woocommerce_blocks_enqueue_checkout_block_scripts_after')) {
+                return;
+            }
+
+            if (wc_get_page_id('myaccount') === -1) {
+                unset($links['my-account']);
+            }
+
+            if (wc_get_page_id('cart') === -1) {
+                unset($links['cart']);
+            }
+
+            $links = apply_filters('akuna_handheld_footer_bar_links', $links);
+        ?>
+        <div class="akuna-handheld-footer-bar">
+            <ul class="columns-<?php echo count($links); ?>">
+                <?php foreach ($links as $key => $link) : ?>
+                    <li class="<?php echo esc_attr($key); ?>">
+                        <?php
+                        if ($link['callback']) {
+                            call_user_func($link['callback'], $key, $link);
+                        }
+                        ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php
+        }
+    }
+
+    if (!function_exists('akuna_handheld_footer_bar_search')) {
+        /**
+         * The search callback function for the handheld footer bar
+         *
+         * @since 1.0.0
+         */
+        function akuna_handheld_footer_bar_search()
+        {
+            echo '<a href="">' . esc_attr__('Search', 'akuna') . '</a>';
+            akuna_product_search();
+        }
+    }
+
+    if (!function_exists('akuna_handheld_footer_bar_cart_link')) {
+        /**
+         * The cart callback function for the handheld footer bar
+         *
+         * @since 1.0.0
+         */
+        function akuna_handheld_footer_bar_cart_link()
+        {
+            if (!akuna_woo_cart_available()) {
+                return;
+            }
+    ?>
+        <a class="footer-cart-contents" href="<?php echo esc_url(wc_get_cart_url()); ?>"><?php esc_html_e('Cart', 'akuna'); ?>
+            <span class="count"><?php echo wp_kses_data(WC()->cart->get_cart_contents_count()); ?></span>
+        </a>
+    <?php
+        }
+    }
+
+    if (!function_exists('akuna_handheld_footer_bar_account_link')) {
+        /**
+         * The account callback function for the handheld footer bar
+         *
+         * @since 1.0.0
+         */
+        function akuna_handheld_footer_bar_account_link()
+        {
+            echo '<a href="' . esc_url(get_permalink(get_option('woocommerce_myaccount_page_id'))) . '">' . esc_attr__('My Account', 'akuna') . '</a>';
+        }
+    }
+
+    if (!function_exists('akuna_cart_link')) {
+        /**
+         * Cart Link
+         * Displayed a link to the cart including the number of items present and the cart total
+         *
+         * @return void
+         * @since  1.0.0
+         */
+        function akuna_cart_link()
+        {
+            if (!akuna_woo_cart_available()) {
+                return;
+            }
+    ?>
+        <div class="cart-container">
+            <a class="cart-contents" href="<?php echo esc_url(wc_get_cart_url()); ?>" title="<?php esc_attr_e('View your shopping cart', 'akuna'); ?>">
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 489 489" xml:space="preserve">
+                    <path d="M440.1,422.7l-28-315.3c-0.6-7-6.5-12.3-13.4-12.3h-57.6C340.3,42.5,297.3,0,244.5,0s-95.8,42.5-96.6,95.1H90.3
+		c-7,0-12.8,5.3-13.4,12.3l-28,315.3c0,0.4-0.1,0.8-0.1,1.2c0,35.9,32.9,65.1,73.4,65.1h244.6c40.5,0,73.4-29.2,73.4-65.1
+		C440.2,423.5,440.2,423.1,440.1,422.7z M244.5,27c37.9,0,68.8,30.4,69.6,68.1H174.9C175.7,57.4,206.6,27,244.5,27z M366.8,462
+		H122.2c-25.4,0-46-16.8-46.4-37.5l26.8-302.3h45.2v41c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5v-41h139.3v41
+		c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5v-41h45.2l26.9,302.3C412.8,445.2,392.1,462,366.8,462z" />
+                </svg>
+                <span class="count">
+                    <?php echo WC()->cart->get_cart_contents_count(); ?>
+                </span>
+            </a>
+        </div>
+        <?php
+        }
+    }
+
+    if (!function_exists('akuna_header_cart')) {
+        /**
+         * Display Header Cart
+         *
+         * @since  1.0.0
+         * @uses  akuna_is_woocommerce_activated() check if WooCommerce is activated
+         * @return void
+         */
+        function akuna_header_cart()
+        {
+            if (akuna_is_woocommerce_activated()) {
+        ?>
+            <div class="header-cart-account header-item">
+                <div class="header-account">
+                    <a href="<?php echo esc_url(get_permalink(get_option('woocommerce_myaccount_page_id'))) ?>" title="<?php esc_attr_e('My Account', 'akuna'); ?>">
+                        <svg width=" 24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="7" r="4" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M4 21V17C4 15.8954 4.89543 15 6 15H18C19.1046 15 20 15.8954 20 17V21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </div>
+                <ul id="header-cart" class="header-cart menu">
+                    <li>
+                        <?php akuna_cart_link(); ?>
+                    </li>
+                    <li>
+                        <?php the_widget('WC_Widget_Cart', 'title='); ?>
+                    </li>
+                </ul>
+            </div>
+        <?php
+            }
+        }
+    }
+
+    if (!function_exists('akuna_cart_link_fragment')) {
+        /**
+         * Cart Fragments
+         * Ensure cart contents update when products are added to the cart via AJAX
+         *
+         * @param  array $fragments Fragments to refresh via AJAX.
+         * @return array            Fragments to refresh via AJAX
+         */
+        function akuna_cart_link_fragment($fragments)
+        {
+            global $woocommerce;
+
+            ob_start();
+            akuna_cart_link();
+            $fragments['div.cart-container'] = ob_get_clean();
+
+            ob_start();
+            akuna_handheld_footer_bar_cart_link();
+            $fragments['a.footer-cart-contents'] = ob_get_clean();
+
+            return $fragments;
+        }
+    }
+
+    if (!function_exists('akuna_widget_shopping_cart_button_view_cart')) {
+
+        /**
+         * Output the view cart button.
+         */
+        function akuna_widget_shopping_cart_button_view_cart()
+        {
+            echo '<a href="' . esc_url(wc_get_cart_url()) . '" class="button">' . esc_html__('View cart', 'akuna') . '</a>';
+        }
+    }
+
+    if (!function_exists('akuna_widget_shopping_cart_proceed_to_checkout')) {
+
+        /**
+         * Output the proceed to checkout button.
+         */
+        function akuna_widget_shopping_cart_proceed_to_checkout()
+        {
+            echo '<a href="' . esc_url(wc_get_checkout_url()) . '" class="button checkout">' . esc_html__('Checkout', 'akuna') . '</a>';
+        }
+    }
+
+    if (!function_exists('akuna_button_proceed_to_checkout')) {
+
+        /**
+         * Output the proceed to checkout button.
+         */
+        function akuna_button_proceed_to_checkout()
+        {
+        ?>
+        <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="checkout-button button alt">
+            <?php esc_html_e('Proceed To Checkout', 'woocommerce'); ?>
+        </a>
 <?php
+        }
+    }
+
+    if (!function_exists('akuna_quantity_plus_sign')) {
+        function akuna_quantity_plus_sign()
+        {
+            echo '<button type="button" class="plus" >+</button>';
+        }
+    }
+
+    if (!function_exists('akuna_quantity_minus_sign')) {
+        function akuna_quantity_minus_sign()
+        {
+            echo '<button type="button" class="minus" >-</button>';
         }
     }
