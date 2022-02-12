@@ -36,6 +36,8 @@ add_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
 add_action('woocommerce_before_shop_loop', 'akuna_woocommerce_pagination', 30);
 add_action('woocommerce_before_shop_loop', 'akuna_sorting_wrapper_close', 31);
 
+add_action('akuna_footer', 'akuna_handheld_footer_bar', 999);
+
 /**
  * Single Product Page
  *
@@ -46,7 +48,6 @@ add_action('woocommerce_before_shop_loop', 'akuna_sorting_wrapper_close', 31);
  * @see akuna_product_review()
  * @see akuna_upsell_display()
  * @see akuna_template_loop_product_title()
- * @see akuna_single_product_pagination()
  * @see akuna_sticky_single_add_to_cart()
  */
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
@@ -77,3 +78,52 @@ add_action('woocommerce_before_shop_loop_item_title', 'akuna_template_loop_produ
 add_action('woocommerce_before_shop_loop_item_title', 'akuna_show_product_sale_featured', 20);
 add_action('woocommerce_before_shop_loop_item_title', 'akuna_product_images_wrapper_close', 30);
 add_action('akuna_after_footer', 'akuna_sticky_single_add_to_cart', 999);
+
+/**
+ * Review Title
+ *
+ * @see akuna_review_header_text()
+ * @see akuna_no_review_header_text()
+ */
+add_filter('woocommerce_reviews_title', 'akuna_review_header_text', 10, 3);
+add_filter('gettext', 'akuna_no_review_header_text', 20, 3);
+add_filter('ngettext', 'akuna_no_review_header_text', 20, 3);
+
+/**
+ * Related Product Title
+ *
+ * @see akuna_upsell_header_text()
+ */
+add_filter('gettext', 'akuna_upsell_header_text', 10, 3);
+add_filter('ngettext', 'akuna_upsell_header_text', 10, 3);
+
+/**
+ * Header
+ *
+ * @see akuna_header_cart()
+ */
+add_action('akuna_header', 'akuna_header_cart', 80);
+
+/**
+ * Cart fragment
+ *
+ * @see akuna_cart_link_fragment()
+ */
+add_filter('woocommerce_add_to_cart_fragments', 'akuna_cart_link_fragment');
+
+/**
+ * Cart widget
+ *
+ * @see akuna_widget_shopping_cart_button_view_cart()
+ * @see akuna_widget_shopping_cart_proceed_to_checkout()
+ */
+remove_action('woocommerce_widget_shopping_cart_buttons', 'woocommerce_widget_shopping_cart_button_view_cart', 10);
+remove_action('woocommerce_widget_shopping_cart_buttons', 'woocommerce_widget_shopping_cart_proceed_to_checkout', 20);
+add_action('woocommerce_widget_shopping_cart_buttons', 'akuna_widget_shopping_cart_button_view_cart', 10);
+add_action('woocommerce_widget_shopping_cart_buttons', 'akuna_widget_shopping_cart_proceed_to_checkout', 20);
+
+
+remove_action('woocommerce_proceed_to_checkout', 'woocommerce_button_proceed_to_checkout', 20);
+add_action('woocommerce_proceed_to_checkout', 'akuna_button_proceed_to_checkout', 20);
+add_action('woocommerce_after_quantity_input_field', 'akuna_quantity_plus_sign');
+add_action('woocommerce_before_quantity_input_field', 'akuna_quantity_minus_sign');

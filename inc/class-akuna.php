@@ -309,6 +309,8 @@ if (!class_exists('akuna')) :
              */
             wp_enqueue_style('akuna-style', get_template_directory_uri() . '/style.css', '', $akuna_version);
 
+            wp_enqueue_style('akuna-icons', get_template_directory_uri() . '/assets/css/base/icons.css', '', $akuna_version);
+
             /**
              * Fonts
              */
@@ -319,7 +321,7 @@ if (!class_exists('akuna')) :
              */
             $suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
 
-            wp_enqueue_script('akuna-navigation', get_template_directory_uri() . '/assets/js/navigation' . $suffix . '.js', array(), $akuna_version, true);
+            wp_enqueue_script('akuna-navigation', get_template_directory_uri() . '/assets/js/navigation.min.js', array(), $akuna_version, true);
 
             if (has_nav_menu('handheld')) {
                 $akuna_l10n = array(
