@@ -5,6 +5,9 @@
 # ignore node dependency directories (used by grunt)
 node_modules/
 
+# ignore assets folder
+assets/
+
 # ignore OS generated files
 ehthumbs.db
 Thumbs.db
@@ -47,6 +50,8 @@ Thumbs.db
 !.gitignore
 !.editorconfig
 !.scss-lint.yml
+!.babelrc
+!.browserslistrc
 !README.md
 !CHANGELOG.md
 !composer.json
