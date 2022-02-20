@@ -249,6 +249,63 @@ if (!function_exists('akuna_before_content')) {
         <div class="akuna-product-review">
             <?php comments_template() ?>
         </div>
+        </div>
+    <?php
+        }
+    }
+
+    if (!function_exists('akuna_meta_rating_wrapper')) {
+        /**
+         * Opening div for meta and rating
+         *
+         * @since 1.0.0
+         */
+        function akuna_meta_rating_wrapper()
+        {
+    ?>
+        <div class="akuna-meta-rating-wrapper">
+        <?php
+        }
+    }
+
+    if (!function_exists('akuna_meta_rating_wrapper_close')) {
+        /**
+         * Closing div for meta and rating
+         *
+         * @since 1.0.0
+         */
+        function akuna_meta_rating_wrapper_close()
+        {
+        ?>
+        </div>
+    <?php
+        }
+    }
+
+    if (!function_exists('akuna_review_header_wrapper')) {
+        /**
+         * Opening div for meta and rating
+         *
+         * @since 1.0.0
+         */
+        function akuna_review_header_wrapper()
+        {
+    ?>
+        <div class="akuna-review-header-wrapper">
+        <?php
+        }
+    }
+
+    if (!function_exists('akuna_review_header_wrapper_close')) {
+        /**
+         * Closing div for meta and rating
+         *
+         * @since 1.0.0
+         */
+        function akuna_review_header_wrapper_close()
+        {
+        ?>
+        </div>
     <?php
         }
     }
@@ -627,6 +684,63 @@ if (!function_exists('akuna_before_content')) {
             $fragments['a.footer-cart-contents'] = ob_get_clean();
 
             return $fragments;
+        }
+    }
+
+    if (!function_exists('akuna_review_form')) {
+        function akuna_review_form($comment_form)
+        {
+            $commenter    = wp_get_current_commenter();
+
+            $fields = array(
+
+                'author' =>
+                '<div class="form-col-50">
+                        <input id="author" name="author" type="text" class="form-control mb-30" value="' . esc_attr($commenter['comment_author']) . '" required="required" placeholder="Name*" />
+                    </div>',
+
+                'email' =>
+                '<div class="form-col-50">
+                        <input id="email" name="email" class="form-control mb-30" type="text" value="' . esc_attr($commenter['comment_author_email']) . '" required="required" placeholder="Email*" />
+                    </div>',
+
+                'cookies' =>
+                '<div class="form-col-100">
+                        <p>
+                            <input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> 
+                            <label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label>
+                        </p>
+                    </div>'
+
+            );
+
+            $comment_form = array(
+
+                'class_container' => 'akuna-form',
+                'title_reply_before' => '<h3 class="mb-4">',
+                'title_reply' => have_comments() ? esc_html__('Add a review', 'woocommerce') : sprintf(esc_html__('Be the first to review &ldquo;%s&rdquo;', 'woocommerce'), get_the_title()),
+                'title_reply_after' => '</h3>',
+                'class_submit' => 'btn mk-btn btn-3 mt-15 mb-30',
+                'label_submit' => __('Submit Review'),
+                'submit_field' => '<div class="form-col-100">%1$s %2$s</div>',
+                'submit_button' => '<button type="submit" id="%2$s" class="%3$s">%4$s</button>',
+                'fields' => apply_filters('comment_form_default_fields', $fields),
+            );
+
+            if (wc_review_ratings_enabled()) {
+                $comment_form['comment_field'] .= '<div class="comment-form-rating"><label for="rating">' . esc_html__('Your rating', 'woocommerce') . (wc_review_ratings_required() ? '&nbsp;<span class="required">*</span>' : '') . '</label><select name="rating" id="rating" required>
+                    <option value="">' . esc_html__('Rate&hellip;', 'woocommerce') . '</option>
+                    <option value="5">' . esc_html__('Perfect', 'woocommerce') . '</option>
+                    <option value="4">' . esc_html__('Good', 'woocommerce') . '</option>
+                    <option value="3">' . esc_html__('Average', 'woocommerce') . '</option>
+                    <option value="2">' . esc_html__('Not that bad', 'woocommerce') . '</option>
+                    <option value="1">' . esc_html__('Very poor', 'woocommerce') . '</option>
+                </select></div>';
+            }
+
+            $comment_form['comment_field'] .= '<div class="form-fields-container"><div class="form-col-100"><textarea id="comment" class="form-control mb-30" name="comment" rows="4" required="required" placeholder="Your review*"></textarea></div>';
+
+            return $comment_form;
         }
     }
 
