@@ -321,6 +321,7 @@ if (!class_exists('akuna')) :
              */
             $suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
 
+            wp_enqueue_script('akuna-main', get_template_directory_uri() . '/assets/js/main.min.js', array('jquery', 'wc-single-product'), $akuna_version, true);
             wp_enqueue_script('akuna-navigation', get_template_directory_uri() . '/assets/js/navigation.min.js', array(), $akuna_version, true);
 
             if (has_nav_menu('handheld')) {
