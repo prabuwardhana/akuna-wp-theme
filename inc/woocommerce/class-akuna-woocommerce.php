@@ -32,6 +32,8 @@ if (!class_exists('akuna_WooCommerce')) :
             // Instead of loading Core CSS files, we only register the font families.
             add_filter('woocommerce_enqueue_styles', '__return_empty_array');
             add_filter('wp_enqueue_scripts', array($this, 'add_core_fonts'), 130);
+
+            add_filter('comments_template', array($this, 'load_custom_comments_template'), 100);
         }
 
         /**
@@ -253,6 +255,17 @@ if (!class_exists('akuna_WooCommerce')) :
                 });
             </script>
 <?php
+        }
+
+        public function load_custom_comments_template($template)
+        {
+            if (get_post_type() !== 'product') {
+                return $template;
+            }
+
+            $template_file_name = 'akuna-single-product-reviews.php';
+
+            return wc_locate_template($template_file_name, '/templates/', '');
         }
     }
 endif;

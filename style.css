@@ -12,6 +12,23 @@ Text Domain:  akuna
 Tags:         e-commerce, woocommerce
  */
 
+:root {
+  --txt-color: #43454b;
+  --txt-color-grey: #6d6d6d;
+  --txt-color-white: #ffffff;
+  --link-color: #78986a;
+  --heading-color: #131315;
+  /* --btn-main-color: #2c2d33; */
+  --btn-main-color: #78986a;
+  --bg-color-white: #ffffff;
+  --bg-color-light-grey: #f2f2f2;
+  --bg-color-red: #eb1e37;
+  --bg-color-green: #31b54e;
+  --border-color-white: #ffffff;
+  --border-color-green: #31b54e;
+  --border-color-grey: rgba(0, 0, 0, 0.05);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -209,7 +226,7 @@ body,
 button,
 input,
 textarea {
-  color: #43454b;
+  color: var(--txt-color);
   font-family: "Poppins", "Source Sans Pro", "HelveticaNeue-Light",
     "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande",
     sans-serif;
@@ -235,7 +252,7 @@ h5,
 h6 {
   font-weight: 300;
   margin: 0 0 0.5rem;
-  color: #131315;
+  color: var(--heading-color);
 }
 h1 a,
 h2 a,
@@ -258,7 +275,6 @@ h2,
 }
 h2 + h3,
 .beta + h3 {
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
   padding-top: 0.5407911001em;
 }
 h3,
@@ -339,7 +355,7 @@ i {
 }
 blockquote {
   padding: 0 1em;
-  border-left: 3px solid rgba(0, 0, 0, 0.05);
+  border-left: 3px solid var(--border-color-grey);
   font-style: italic;
 }
 address {
@@ -402,7 +418,7 @@ img {
   border-radius: 3px;
 }
 a {
-  color: #2c2d33;
+  color: var(--link-color);
   text-decoration: none;
 }
 button,
@@ -420,11 +436,11 @@ input[type="submit"],
 .wc-block-grid__products .wc-block-grid__product .wp-block-button__link,
 .added_to_cart {
   border: 0;
-  border-radius: 0;
+  border-radius: 5px;
   background: none;
-  background-color: #43454b;
-  border-color: #43454b;
-  color: #fff;
+  background-color: var(--btn-main-color);
+  border-color: var(--btn-main-color);
+  color: var(--txt-color-white);
   cursor: pointer;
   padding: 0.6180469716em 1.41575em;
   text-decoration: none;
@@ -447,9 +463,9 @@ input[type="submit"].alt,
 .wc-block-grid__products .wc-block-grid__product .wp-block-button__link.alt,
 .added_to_cart.cta,
 .added_to_cart.alt {
-  background-color: #2c2d33;
+  background-color: var(--btn-main-color);
+  border-color: var(--btn-main-color);
   border: 2px solid;
-  border-color: #2c2d33;
 }
 button.cta:hover,
 button.alt:hover,
@@ -469,7 +485,7 @@ input[type="submit"].alt:hover,
   .wp-block-button__link.alt:hover,
 .added_to_cart.cta:hover,
 .added_to_cart.alt:hover {
-  background-color: #2c2d33;
+  background-color: var(--btn-main-color);
 }
 
 input[type="text"],
@@ -482,8 +498,8 @@ input[type="search"],
 textarea,
 .input-text {
   padding: 0.6180469716em;
-  background-color: #f2f2f2;
-  color: #43454b;
+  background-color: var(--bg-color-light-grey);
+  color: var(--txt-color);
   border: 0;
   -webkit-appearance: none;
   box-sizing: border-box;
@@ -499,7 +515,7 @@ input[type="password"]:focus,
 input[type="search"]:focus,
 textarea:focus,
 .input-text:focus {
-  background-color: #ededed;
+  background-color: var(--bg-color-light-grey);
 }
 
 /*
@@ -522,8 +538,13 @@ Button
 
 .quantity button.plus,
 .quantity button.minus {
-  border: unset;
-  border-radius: 5px;
+  border-radius: 0;
+  background-color: unset;
+  border-color: unset;
+  color: var(--txt-color);
+  font-weight: 400;
+  padding: 0 0.8em;
+  line-height: 44px;
 }
 .quantity input::-webkit-outer-spin-button,
 .quantity input::-webkit-inner-spin-button {
@@ -597,7 +618,7 @@ Form section
   height: 50px;
   padding: 0 20px;
   border-radius: 10px;
-  color: #8d8d8d;
+  color: var(--txt-color-grey);
   font-size: 14px;
 }
 .akuna-form textarea.form-control {
@@ -636,13 +657,9 @@ Site content section
 ====================================
 */
 
-.site-main {
-  margin-bottom: 2.5rem;
-}
-
 .site-content {
   outline: none;
-  margin-top: 30px;
+  margin: 30px 0;
 }
 .site-content,
 .header-widget-region {
@@ -704,7 +721,7 @@ Search section
   position: relative;
 }
 .widget_product_search form:before {
-  color: #6d6d6d;
+  color: var(--txt-color-grey);
 }
 
 /*
@@ -715,11 +732,11 @@ Site header container
 .site-header {
   padding: 10px;
   z-index: 999;
-  background-color: #ffffff;
+  background-color: var(--bg-color-white);
 }
 .site-header.sticky {
   position: fixed;
-  width: calc(100% - 20px);
+  width: 100%;
   top: 0;
   box-shadow: 0 8px 6px -6px rgb(0 0 0 / 0.2);
 }
@@ -883,12 +900,12 @@ Mobile display footer menu bar
 .akuna-handheld-footer-bar,
 .akuna-handheld-footer-bar ul li > a,
 .akuna-handheld-footer-bar ul li.search .site-search {
-  background-color: #ffffff;
+  background-color: var(--bg-color-white);
 }
 .akuna-handheld-footer-bar ul li.cart .count {
-  background-color: #333333;
-  color: #ffffff;
-  border-color: #ffffff;
+  background-color: var(--bg-color-red);
+  color: var(--txt-color-white);
+  border-color: var(--border-color-white);
 }
 .site-search {
   font-size: 0.875em;
@@ -902,8 +919,8 @@ Site footer
 ====================================
 */
 .site-footer {
-  background-color: #f0f0f0;
-  color: #6d6d6d;
+  background-color: var(--bg-color-light-grey);
+  color: var(--txt-color-grey);
   padding: 2.5rem 0 1.5rem;
 }
 .site-footer h1,
@@ -912,10 +929,10 @@ Site footer
 .site-footer h4,
 .site-footer h5,
 .site-footer h6 {
-  color: #333437;
+  color: var(--txt-color);
 }
 .site-footer a {
-  color: #2c2d33;
+  color: var(--link-color);
 }
 .site-footer a,
 .site-footer a:hover,
@@ -930,7 +947,7 @@ Site footer
   display: flex;
   flex-direction: column;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--border-color-grey);
 }
 .site-footer .footer-widgets .block {
   flex: 1;
@@ -1018,10 +1035,27 @@ Single Page
   padding-top: 1.5em;
   color: orange;
 }
+.star-no-rating {
+  opacity: 0.25;
+}
 
 .quantity .qty {
-  width: 4.25em;
+  width: 2rem;
+  height: 44px;
   text-align: center;
+  background-color: transparent;
+}
+
+body.single-product {
+  /* background-color: #f2f5f1; */
+  background-color: #dbe7d7;
+}
+
+body.single-product .content-area {
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 0.25rem;
+  box-shadow: 0px 15px 25px -10px rgb(0 0 0 / 5%);
 }
 
 .single-product .pswp__button {
@@ -1049,7 +1083,7 @@ Single Page
   position: relative;
 }
 .single-product div.product .woocommerce-product-gallery .zoomImg {
-  background-color: #fff;
+  background-color: var(--bg-color-white);
 }
 .single-product
   div.product
@@ -1066,6 +1100,7 @@ Single Page
   text-align: center;
   text-indent: -999px;
   overflow: hidden;
+  background-color: var(--bg-color-white);
 }
 .single-product
   div.product
@@ -1258,10 +1293,11 @@ Single Page
   clear: both;
 }
 .single-product div.product form.cart .quantity {
-  float: none;
   margin: 0;
   display: inline-block;
   margin-right: 20px;
+  border: solid 1px var(--btn-main-color);
+  border-radius: 0.25rem;
 }
 .single-product
   div.product
@@ -1352,7 +1388,7 @@ Single Page
 .single-product div.product .product_meta {
   font-size: 0.875em;
   padding-top: 1em;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--border-color-grey);
 }
 .single-product div.product .product_meta .sku_wrapper,
 .single-product div.product .product_meta .posted_in,
@@ -1393,10 +1429,20 @@ Product image and summary container
 Product image section
 ====================================
 */
-
+.akuna-product-loop-below-image {
+  padding: 0 1rem 1rem 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.akuna-product-image-summary > .akuna-product-image {
+  padding: 0;
+}
 .akuna-product-image {
   position: relative;
-  margin-bottom: 1rem;
+  background-color: var(--bg-color-white);
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  padding: 1.5rem;
 }
 .akuna-product-image .akuna-onsale-hot {
   position: absolute;
@@ -1424,28 +1470,29 @@ Product image section
   bottom: -10px;
   padding: 0;
   border-bottom: 10px solid transparent;
-  border-left: 23px solid #31b54e;
-  border-right: 23px solid #31b54e;
+  border-left: 23px solid var(--border-color-green);
+  border-right: 23px solid var(--border-color-green);
 }
 .akuna-product-image .akuna-onsale {
-  background: #31b54e;
-  color: #fff;
+  background-color: var(--bg-color-green);
+  color: var(--txt-color-white);
 }
 .akuna-product-image .akuna-hot {
   text-transform: uppercase;
   line-height: 1;
-  font-weight: 600;
+  font-weight: 700;
   z-index: 1;
-  background: #eb1e37;
-  color: #fff;
-  font-size: 12px;
-  padding: 6px 9px;
+  background-color: var(--bg-color-red);
+  color: var(--txt-color-white);
   border-radius: 2px;
   display: block;
+  text-align: center;
+  padding: 6px 0;
+  width: 46px;
 }
 .related .akuna-product-image img {
-  max-height: 500px !important;
-  object-fit: cover;
+  max-height: 350px !important;
+  object-fit: contain;
 }
 
 /*
@@ -1460,7 +1507,7 @@ Product summary section
 
 .akuna-single-product-cat {
   margin-bottom: 1.5rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 400;
 }
 
@@ -1473,8 +1520,8 @@ Product summary section
   display: inline-block;
   padding: 0.5rem 1rem;
   margin: 1rem 0;
-  color: #fff;
-  background-color: #333;
+  color: var(--txt-color-white);
+  background-color: var(--btn-main-color);
 }
 
 /*
@@ -1498,12 +1545,12 @@ Woocommerce Tabs
   list-style: none;
   margin: 0;
   text-align: left;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--border-color-grey);
 }
 .woocommerce-tabs ul.tabs li {
   display: block;
   margin: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--border-color-grey);
   position: relative;
 }
 .woocommerce-tabs ul.tabs li a {
@@ -1520,6 +1567,9 @@ Woocommerce Tabs
 Product list
 ====================================
 */
+.related.products h2 {
+  margin-bottom: 1.5rem;
+}
 ul.products::before,
 ul.products::after {
   content: "";
@@ -1531,6 +1581,7 @@ ul.products::after {
 ul.products {
   margin-left: 0;
   margin-bottom: 0;
+  padding: 0 5px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -1538,30 +1589,66 @@ ul.products {
 ul.products li.product {
   list-style: none;
   margin-left: 0;
-  margin-bottom: 4rem;
-  text-align: center;
+  text-align: left;
 }
-ul.products li.product .star-rating {
-  margin: 0 auto 0.5407911001em;
-}
-ul.products li.product img {
-  display: block;
+ul.products li.product .star-rating,
+ul.products li.product .star-no-rating {
+  margin-bottom: 0.5em;
 }
 ul.products li.product.product-category img {
   margin-bottom: 1.618em;
 }
 ul.products li.product .button {
-  margin-bottom: 0.236em;
+  height: fit-content;
+  align-self: center;
 }
 ul.products li.product .price {
   display: block;
-  color: #43454b;
+  color: var(--txt-color);
   font-weight: 400;
   margin-bottom: 1rem;
+  font-size: 1.2rem;
 }
 ul.products li.product .price ins {
   margin-left: 0.6180469716em;
   background-color: transparent;
+}
+.akuna-loop-product__title {
+  border-top: solid 1px #eee;
+  padding: 1rem 1rem 0 1rem;
+}
+.site-main ul.products li.product {
+  /* width: 30%; */
+  /* margin-right: 5%; */
+  margin-right: 1.5rem;
+  flex: 1;
+}
+.site-main ul.products.columns-1 li.product {
+  width: 100%;
+  margin-right: 0;
+  float: none;
+}
+.site-main ul.products.columns-2 li.product {
+  width: 48%;
+  margin-right: 3.8%;
+}
+.site-main ul.products.columns-3 li.product {
+  border-radius: 0.25rem;
+  background-color: var(--bg-color-light-grey);
+  border: solid 1px var(--btn-main-color);
+}
+.site-main ul.products.columns-4 li.product {
+  width: 22.05%;
+  margin-right: 3.8%;
+}
+.site-main ul.products.columns-5 li.product {
+  width: 16.9%;
+  margin-right: 3.8%;
+}
+.site-main ul.products.columns-6 li.product {
+  width: 11.7647058824%;
+  float: left;
+  margin-right: 5.8823529412%;
 }
 
 /*
@@ -1569,8 +1656,9 @@ ul.products li.product .price ins {
 Reviews
 ====================================
 */
+.akuna-woocommerce-Rating,
 .akuna-product-review {
-  margin: 2rem 0 5rem;
+  margin: 0 0 1.5rem;
 }
 #reviews {
   outline: none;
@@ -1587,9 +1675,11 @@ Reviews
 #reviews .commentlist {
   list-style: none;
   margin-left: 0;
+  padding-top: 1.5rem;
+  border-top: solid 1px var(--bg-color-light-grey);
 }
 #reviews .commentlist li {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   list-style: none;
 }
 #reviews .commentlist li .comment_container {
@@ -1597,7 +1687,7 @@ Reviews
 }
 #reviews .commentlist li .comment_container .comment-text {
   margin-right: 0;
-  background-color: #f2f2f2;
+  background-color: var(--bg-color-light-grey);
   padding: 1.5rem;
   border-radius: 10px;
 }
@@ -1685,7 +1775,7 @@ Reviews
 }
 #reviews .comment-form-rating .stars span > a {
   font-size: 0;
-  opacity: 0.3;
+  opacity: 0.25;
 }
 #reviews .comment-form-rating .stars span a:hover,
 #reviews .comment-form-rating .stars span a:hover ~ a,
@@ -1696,10 +1786,8 @@ Reviews
 }
 #respond {
   margin-top: 1.5rem;
-  padding: 1.5rem;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.0125);
-  position: relative;
+  padding: 1.5rem 0;
+  border-top: solid 1px var(--bg-color-light-grey);
 }
 #respond .comment-form-rating {
   margin-bottom: 1.5rem;
@@ -1729,6 +1817,67 @@ Reviews
 }
 #respond #cancel-comment-reply-link:hover {
   transform: scale(1.3);
+}
+
+h2.akuna-Ratings-title {
+  margin-bottom: 1.5rem;
+}
+.rating-summary {
+  display: flex;
+  justify-content: flex-start;
+}
+.rating-average {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 2rem;
+}
+.rating-average .star-rating {
+  align-self: center;
+}
+.rating-average .rating-box {
+  width: 130px;
+  height: 130px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #78986a;
+  border-radius: 10px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.rating-average .rating-box h3 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--txt-color-white);
+}
+.rating-average .rating-box h3,
+.rating-average .rating-box p {
+  margin: 0;
+}
+.rating-snapshot .rating-label {
+  font-weight: bold;
+}
+.rating-snapshot .rating-bar {
+  width: 300px;
+  padding: 8px;
+  border-radius: 5px;
+}
+.rating-snapshot .bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+.rating-snapshot .bar-container .bar {
+  height: 13px;
+  background-color: #78986a;
+  border-radius: 20px;
 }
 
 @media screen and (max-height: 320px) {
@@ -1767,13 +1916,11 @@ Reviews
   .header-account {
     display: block;
   }
-  .woocommerce-active .header-cart {
-    margin: 0 0 0 1rem;
-  }
-  .woocommerce-active .header-cart svg,
-  .header-account svg {
+  .woocommerce-active .header-cart i,
+  .header-account i {
     height: 30px;
     width: 30px;
+    font-size: 1.5rem;
   }
 
   .header-cart {
@@ -1797,12 +1944,12 @@ Reviews
     right: -10px;
     width: 1.5rem;
     height: 1.5rem;
-    background-color: red;
-    color: white;
+    background-color: var(--bg-color-red);
+    color: var(--txt-color-white);
     font-size: 0.875rem;
     border-radius: 50%;
     text-align: center;
-    border: solid 2px white;
+    border: solid 1px var(--border-color-white);
   }
   .header-cart .widget_shopping_cart {
     position: absolute;
@@ -1820,7 +1967,7 @@ Reviews
     transition: all 0.5s ease;
     left: 100%;
     transform: translateX(-100%);
-    background-color: #ffffff;
+    background-color: var(--bg-color-white);
   }
   .header-cart:hover .widget_shopping_cart,
   .header-cart:focus .widget_shopping_cart {
@@ -1844,15 +1991,15 @@ Reviews
     text-align: center;
   }
   .header-cart .widget_shopping_cart p.total {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    background-color: #f5f5f5;
+    border-bottom: 1px solid var(--border-color-grey);
+    background-color: var(--bg-color-light-grey);
   }
   .header-cart .widget_shopping_cart .product_list_widget {
     list-style: none;
     padding: 0;
   }
   .header-cart .widget_shopping_cart .product_list_widget li {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--border-color-grey);
   }
   .header-cart .widget_shopping_cart .product_list_widget li::before,
   .header-cart .widget_shopping_cart .product_list_widget li::after {
@@ -1871,12 +2018,12 @@ Reviews
     display: block;
   }
   .header-cart .widget_shopping_cart .product_list_widget li > a:hover {
-    color: #2c2d33;
+    color: var(--link-color);
   }
   .header-cart .widget_shopping_cart .product_list_widget li a.remove {
     float: left;
     background-color: #dd9933;
-    color: white;
+    color: var(--txt-color-white);
     border-radius: 50%;
     text-align: center;
     margin-right: 10px;
@@ -1956,37 +2103,6 @@ Reviews
     width: 70%;
     margin-right: 0;
     margin-top: 0;
-  }
-
-  .site-main ul.products li.product {
-    width: 30%;
-    margin-right: 5%;
-  }
-  .site-main ul.products.columns-1 li.product {
-    width: 100%;
-    margin-right: 0;
-    float: none;
-  }
-  .site-main ul.products.columns-2 li.product {
-    width: 48%;
-    margin-right: 3.8%;
-  }
-  .site-main ul.products.columns-3 li.product {
-    width: 30%;
-    margin-right: 5%;
-  }
-  .site-main ul.products.columns-4 li.product {
-    width: 22.05%;
-    margin-right: 3.8%;
-  }
-  .site-main ul.products.columns-5 li.product {
-    width: 16.9%;
-    margin-right: 3.8%;
-  }
-  .site-main ul.products.columns-6 li.product {
-    width: 11.7647058824%;
-    float: left;
-    margin-right: 5.8823529412%;
   }
   ul.products li.product {
     width: 100%;
