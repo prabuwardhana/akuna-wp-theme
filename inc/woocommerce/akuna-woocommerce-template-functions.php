@@ -233,6 +233,135 @@ if (!function_exists('akuna_before_content')) {
             }
             ?>
         </div>
+        <?php
+        }
+    }
+
+    if (!function_exists('akuna_template_loop_norating')) {
+        /**
+         * Display empty star rating when no review is found
+         *
+         * @since 1.0.0
+         */
+        function akuna_template_loop_norating()
+        {
+            global $product;
+
+            if (!$product->get_average_rating()) :
+        ?>
+            <div class="star-no-rating">
+                <span class="fas fa-star s1"></span>
+                <span class="fas fa-star s2"></span>
+                <span class="fas fa-star s3"></span>
+                <span class="fas fa-star s4"></span>
+                <span class="fas fa-star s5"></a>
+            </div>
+        <?php
+            endif;
+        }
+    }
+
+    if (!function_exists('akuna_product_loop_below_image_wrapper')) {
+        /**
+         * Product image and summary wrapper
+         *
+         * @since 1.0.0
+         */
+        function akuna_product_loop_below_image_wrapper()
+        {
+            echo '<div class="akuna-product-loop-below-image">';
+        }
+    }
+
+    if (!function_exists('akuna_product_loop_below_image_wrapper_close')) {
+        /**
+         * Product image and summary wrapper close
+         *
+         * @since 1.0.0
+         */
+        function akuna_product_loop_below_image_wrapper_close()
+        {
+            echo '</div>';
+        }
+    }
+
+    if (!function_exists('akuna_after_shop_loop_item_title_wrapper')) {
+        /**
+         * Product image and summary wrapper
+         *
+         * @since 1.0.0
+         */
+        function akuna_after_shop_loop_item_title_wrapper()
+        {
+            echo '<div class="akuna-product-rating-price">';
+        }
+    }
+
+    if (!function_exists('akuna_after_shop_loop_item_title_wrapper_close')) {
+        /**
+         * Product image and summary wrapper close
+         *
+         * @since 1.0.0
+         */
+        function akuna_after_shop_loop_item_title_wrapper_close()
+        {
+            echo '</div>';
+        }
+    }
+
+    if (!function_exists('akuna_single_product_review_summary')) {
+        /**
+         * Display product review/s and review form
+         *
+         * @since 1.0.0
+         */
+        function akuna_single_product_review_summary()
+        {
+            global $product;
+            $average      = $product->get_average_rating();
+            $review_count = $product->get_review_count();
+            $rating_texts = array(
+                "5" => esc_html__("Perfect", "akuna"),
+                "4" => esc_html__("Good", "akuna"),
+                "3" => esc_html__("Average", "akuna"),
+                "2" => esc_html__("Not that bad", "akuna"),
+                "1" => esc_html__("Very poor", "akuna"),
+            );
+        ?>
+        <div id="akuna-rating" class="akuna-woocommerce-Rating">
+            <div class="rating-summary">
+                <div class="rating-average">
+                    <div class="rating-box">
+                        <h3><?php echo number_format((float)$average, 1, '.', '') ?></h3>
+                        <p><?php echo esc_html__("out of 5", "akuna") ?></p>
+                    </div>
+                    <div class="star-rating">
+                        <span style="width: <?php echo (($average / 5) * 100) ?>%"></span>
+                    </div>
+                </div>
+                <div class="rating-snapshot">
+                    <div class="rating-bar0">
+                        <table>
+                            <?php
+                            foreach ($rating_texts as $key => $value) {
+                            ?>
+                                <tr>
+                                    <td class="rating-label"><?php echo $value ?></td>
+                                    <td class="rating-bar">
+                                        <div class="bar-container">
+                                            <div class="bar" style="width: <?php echo ((get_rating_value_count($key) / $review_count) * 100) ?>%"></div>
+                                        </div>
+                                    </td>
+                                    <td class="text-right"><?php echo get_rating_value_count($key) ?></td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     <?php
         }
     }
@@ -418,19 +547,7 @@ if (!function_exists('akuna_before_content')) {
          */
         function akuna_review_header_text($translated, $text, $domain)
         {
-            return 'Ratings and Reviews';
-        }
-    }
-
-    if (!function_exists('akuna_review_header_text')) {
-        /**
-         * Change default review header text
-         *
-         * @return string translated text
-         */
-        function akuna_review_header_text($translated, $text, $domain)
-        {
-            return 'Ratings and Reviews';
+            return 'Product Reviews';
         }
     }
 
@@ -443,7 +560,7 @@ if (!function_exists('akuna_before_content')) {
         function akuna_no_review_header_text($translated, $text, $domain)
         {
             if (function_exists('is_product') && is_product() && $text == 'Reviews' && $domain == 'woocommerce') {
-                $translated = esc_html__('Ratings and Reviews', $domain);
+                $translated = esc_html__('Product Reviews', $domain);
             }
             return $translated;
         }
@@ -610,15 +727,9 @@ if (!function_exists('akuna_before_content')) {
                 return;
             }
     ?>
-        <div class="cart-container">
+        <div class="cart-container1">
             <a class="cart-contents" href="<?php echo esc_url(wc_get_cart_url()); ?>" title="<?php esc_attr_e('View your shopping cart', 'akuna'); ?>">
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 489 489" xml:space="preserve">
-                    <path d="M440.1,422.7l-28-315.3c-0.6-7-6.5-12.3-13.4-12.3h-57.6C340.3,42.5,297.3,0,244.5,0s-95.8,42.5-96.6,95.1H90.3
-		c-7,0-12.8,5.3-13.4,12.3l-28,315.3c0,0.4-0.1,0.8-0.1,1.2c0,35.9,32.9,65.1,73.4,65.1h244.6c40.5,0,73.4-29.2,73.4-65.1
-		C440.2,423.5,440.2,423.1,440.1,422.7z M244.5,27c37.9,0,68.8,30.4,69.6,68.1H174.9C175.7,57.4,206.6,27,244.5,27z M366.8,462
-		H122.2c-25.4,0-46-16.8-46.4-37.5l26.8-302.3h45.2v41c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5v-41h139.3v41
-		c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5v-41h45.2l26.9,302.3C412.8,445.2,392.1,462,366.8,462z" />
-                </svg>
+                <i class="fas fa-shopping-cart"></i>
                 <span class="count">
                     <?php echo WC()->cart->get_cart_contents_count(); ?>
                 </span>
@@ -643,10 +754,7 @@ if (!function_exists('akuna_before_content')) {
             <div class="header-cart-account header-item">
                 <div class="header-account">
                     <a href="<?php echo esc_url(get_permalink(get_option('woocommerce_myaccount_page_id'))) ?>" title="<?php esc_attr_e('My Account', 'akuna'); ?>">
-                        <svg width=" 24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="12" cy="7" r="4" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M4 21V17C4 15.8954 4.89543 15 6 15H18C19.1046 15 20 15.8954 20 17V21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+                        <i class="fas fa-user"></i>
                     </a>
                 </div>
                 <ul id="header-cart" class="header-cart menu">
@@ -677,70 +785,13 @@ if (!function_exists('akuna_before_content')) {
 
             ob_start();
             akuna_cart_link();
-            $fragments['div.cart-container'] = ob_get_clean();
+            $fragments['div.cart-container1'] = ob_get_clean();
 
             ob_start();
             akuna_handheld_footer_bar_cart_link();
             $fragments['a.footer-cart-contents'] = ob_get_clean();
 
             return $fragments;
-        }
-    }
-
-    if (!function_exists('akuna_review_form')) {
-        function akuna_review_form($comment_form)
-        {
-            $commenter    = wp_get_current_commenter();
-
-            $fields = array(
-
-                'author' =>
-                '<div class="form-col-50">
-                        <input id="author" name="author" type="text" class="form-control mb-30" value="' . esc_attr($commenter['comment_author']) . '" required="required" placeholder="Name*" />
-                    </div>',
-
-                'email' =>
-                '<div class="form-col-50">
-                        <input id="email" name="email" class="form-control mb-30" type="text" value="' . esc_attr($commenter['comment_author_email']) . '" required="required" placeholder="Email*" />
-                    </div>',
-
-                'cookies' =>
-                '<div class="form-col-100">
-                        <p>
-                            <input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> 
-                            <label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label>
-                        </p>
-                    </div>'
-
-            );
-
-            $comment_form = array(
-
-                'class_container' => 'akuna-form',
-                'title_reply_before' => '<h3 class="mb-4">',
-                'title_reply' => have_comments() ? esc_html__('Add a review', 'woocommerce') : sprintf(esc_html__('Be the first to review &ldquo;%s&rdquo;', 'woocommerce'), get_the_title()),
-                'title_reply_after' => '</h3>',
-                'class_submit' => 'btn mk-btn btn-3 mt-15 mb-30',
-                'label_submit' => __('Submit Review'),
-                'submit_field' => '<div class="form-col-100">%1$s %2$s</div>',
-                'submit_button' => '<button type="submit" id="%2$s" class="%3$s">%4$s</button>',
-                'fields' => apply_filters('comment_form_default_fields', $fields),
-            );
-
-            if (wc_review_ratings_enabled()) {
-                $comment_form['comment_field'] .= '<div class="comment-form-rating"><label for="rating">' . esc_html__('Your rating', 'woocommerce') . (wc_review_ratings_required() ? '&nbsp;<span class="required">*</span>' : '') . '</label><select name="rating" id="rating" required>
-                    <option value="">' . esc_html__('Rate&hellip;', 'woocommerce') . '</option>
-                    <option value="5">' . esc_html__('Perfect', 'woocommerce') . '</option>
-                    <option value="4">' . esc_html__('Good', 'woocommerce') . '</option>
-                    <option value="3">' . esc_html__('Average', 'woocommerce') . '</option>
-                    <option value="2">' . esc_html__('Not that bad', 'woocommerce') . '</option>
-                    <option value="1">' . esc_html__('Very poor', 'woocommerce') . '</option>
-                </select></div>';
-            }
-
-            $comment_form['comment_field'] .= '<div class="form-fields-container"><div class="form-col-100"><textarea id="comment" class="form-control mb-30" name="comment" rows="4" required="required" placeholder="Your review*"></textarea></div>';
-
-            return $comment_form;
         }
     }
 
