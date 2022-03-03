@@ -57,6 +57,7 @@ remove_action('woocommerce_after_single_product_summary', 'woocommerce_upsell_di
 remove_action('woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10);
 remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10);
 remove_action('woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10);
+remove_action('woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10);
 remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5);
 add_action('woocommerce_single_product_summary', 'akuna_single_product_cat', 6);
 add_action('woocommerce_single_product_summary', 'akuna_single_product_attribute', 25);
@@ -72,14 +73,17 @@ add_action('woocommerce_after_single_product_summary', 'akuna_product_images_sum
 add_action('woocommerce_after_single_product_summary', 'akuna_single_product_review', 15);
 add_action('woocommerce_after_single_product_summary', 'akuna_upsell_display', 25);
 
+add_action('woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_link_open', 5);
 add_action('woocommerce_shop_loop_item_title', 'akuna_template_loop_product_title', 10);
+add_action('woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_link_close', 15);
 
 add_action('woocommerce_before_shop_loop_item_title', 'akuna_product_images_wrapper', 5);
+add_action('woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_link_open', 6);
 add_action('woocommerce_before_shop_loop_item_title', 'akuna_template_loop_product_thumbnail', 10);
 add_action('woocommerce_before_shop_loop_item_title', 'akuna_show_product_sale_featured', 20);
 add_action('woocommerce_before_shop_loop_item_title', 'akuna_product_images_wrapper_close', 30);
-add_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_product_link_close', 2);
-add_action('woocommerce_after_shop_loop_item_title', 'akuna_product_loop_below_image_wrapper', 3);
+add_action('woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_link_close', 40);
+add_action('woocommerce_before_shop_loop_item_title', 'akuna_product_loop_below_image_wrapper', 50);
 add_action('woocommerce_after_shop_loop_item_title', 'akuna_after_shop_loop_item_title_wrapper', 4);
 add_action('woocommerce_after_shop_loop_item_title', 'akuna_template_loop_norating', 7);
 add_action('woocommerce_after_shop_loop_item_title', 'akuna_after_shop_loop_item_title_wrapper_close', 15);
@@ -95,7 +99,8 @@ add_action('woocommerce_review_meta', 'akuna_meta_rating_wrapper', 5);
 add_action('woocommerce_review_meta', 'woocommerce_review_display_rating', 15);
 add_action('woocommerce_review_meta', 'akuna_meta_rating_wrapper_close', 20);
 add_action('woocommerce_review_meta', 'akuna_review_header_wrapper_close', 30);
-// add_filter('woocommerce_product_review_comment_form_args', 'akuna_review_form');
+
+add_filter('woocommerce_product_description_heading', '__return_null');
 
 /**
  * Review Title
@@ -140,8 +145,23 @@ remove_action('woocommerce_widget_shopping_cart_buttons', 'woocommerce_widget_sh
 add_action('woocommerce_widget_shopping_cart_buttons', 'akuna_widget_shopping_cart_button_view_cart', 10);
 add_action('woocommerce_widget_shopping_cart_buttons', 'akuna_widget_shopping_cart_proceed_to_checkout', 20);
 
-
+/**
+ * Cart Page
+ *
+ * @see akuna_cart_progress()
+ * @see akuna_button_proceed_to_checkout()
+ * @see akuna_quantity_plus_sign()
+ * @see akuna_quantity_minus_sign()
+ */
 remove_action('woocommerce_proceed_to_checkout', 'woocommerce_button_proceed_to_checkout', 20);
+add_action('woocommerce_before_cart', 'akuna_cart_progress');
 add_action('woocommerce_proceed_to_checkout', 'akuna_button_proceed_to_checkout', 20);
 add_action('woocommerce_after_quantity_input_field', 'akuna_quantity_plus_sign');
 add_action('woocommerce_before_quantity_input_field', 'akuna_quantity_minus_sign');
+
+/**
+ * Checkout Page
+ *
+ * @see akuna_cart_progress()
+ */
+add_action('woocommerce_before_checkout_form', 'akuna_cart_progress', 5);

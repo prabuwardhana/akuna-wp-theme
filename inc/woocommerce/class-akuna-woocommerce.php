@@ -34,6 +34,7 @@ if (!class_exists('akuna_WooCommerce')) :
             add_filter('wp_enqueue_scripts', array($this, 'add_core_fonts'), 130);
 
             add_filter('comments_template', array($this, 'load_custom_comments_template'), 100);
+            add_filter('woocommerce_locate_template', array($this, 'load_custom_cart_template'), 10, 3);
         }
 
         /**
@@ -257,6 +258,13 @@ if (!class_exists('akuna_WooCommerce')) :
 <?php
         }
 
+        /**
+         * Load our custom review template instead of woocommerce one
+         *
+         * @param  string $template         Path to woocommerce template file.
+         * @return string                   path to our custom review template path.
+         * @since 1.0.0
+         */
         public function load_custom_comments_template($template)
         {
             if (get_post_type() !== 'product') {
@@ -266,6 +274,39 @@ if (!class_exists('akuna_WooCommerce')) :
             $template_file_name = 'akuna-single-product-reviews.php';
 
             return wc_locate_template($template_file_name, '/templates/', '');
+        }
+
+        /**
+         * Load our custom cat template instead of woocommerce one
+         *
+         * @param  string $template         Path to woocommerce template file.
+         * @param  string $template_name    Woocommerce template file name.
+         * @param  string $template_path    Search path ("woocommerce/").
+         * @return string                   path to our cart custom template path.
+         * @since 1.0.0
+         */
+        public function load_custom_cart_template($template, $template_name, $template_path)
+        {
+            // Return the original woocommerce template if it's not cart template
+            if (false == str_contains($template_name, 'cart/cart.php')) {
+                return $template;
+            }
+
+            // $template_path initially has the value of "woocommerce/"
+            $template_path = 'templates/';
+            // $template_name initially has the value of "cart/cart.php"
+            $template_name = 'akuna-cart.php';
+
+            $template = locate_template(
+                array(
+                    // templates/akuna-cart.php
+                    trailingslashit($template_path) . $template_name,
+                    // akuna-cart.php
+                    $template_name,
+                )
+            );
+
+            return $template;
         }
     }
 endif;
