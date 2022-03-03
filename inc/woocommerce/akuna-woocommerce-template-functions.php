@@ -817,6 +817,39 @@ if (!function_exists('akuna_before_content')) {
         }
     }
 
+    if (!function_exists('akuna_cart_progress')) {
+
+        /**
+         * More product info
+         * Link to product
+         *
+         * @return void
+         * @since  1.0.0
+         */
+        function akuna_cart_progress()
+        {
+        ?>
+        </div>
+        <div class="checkout-wrap">
+            <ul class="checkout-bar">
+                <li class="active first"><span>
+                        <a href="<?php echo get_permalink(wc_get_page_id('cart')); ?>"><?php esc_html_e('Shopping Cart', 'akuna'); ?></a></span>
+                </li>
+                <li class="next">
+                    <span>
+                        <a href="<?php echo get_permalink(wc_get_page_id('checkout')); ?>"><?php esc_html_e('Shipping and Checkout', 'akuna'); ?></a></span>
+                </li>
+                <li><span><?php esc_html_e('Confirmation', 'akuna'); ?></span></li>
+
+            </ul>
+        </div>
+        <?php
+        ?>
+    <?php
+
+        }
+    }
+
     if (!function_exists('akuna_button_proceed_to_checkout')) {
 
         /**
@@ -824,7 +857,7 @@ if (!function_exists('akuna_before_content')) {
          */
         function akuna_button_proceed_to_checkout()
         {
-        ?>
+    ?>
         <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="checkout-button button alt">
             <?php esc_html_e('Proceed To Checkout', 'woocommerce'); ?>
         </a>
