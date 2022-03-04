@@ -173,13 +173,6 @@ do_action('woocommerce_before_cart'); ?>
         do_action('woocommerce_cart_collaterals');
 
         ?>
-        <?php if (wc_coupons_enabled()) { ?>
-            <div class="coupon">
-                <input form="woocommerce-cart" type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e('Promo code', 'woocommerce'); ?>" />
-                <button form="woocommerce-cart" type="submit" class="button btn-full-width" name="apply_coupon" value="<?php esc_attr_e('Apply coupon', 'woocommerce'); ?>"><?php esc_attr_e('Apply coupon', 'woocommerce'); ?></button>
-                <?php do_action('woocommerce_cart_coupon'); ?>
-            </div>
-        <?php } ?>
     </div>
 </div>
 

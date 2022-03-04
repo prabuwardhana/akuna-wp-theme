@@ -155,9 +155,10 @@ add_action('woocommerce_widget_shopping_cart_buttons', 'akuna_widget_shopping_ca
  */
 remove_action('woocommerce_proceed_to_checkout', 'woocommerce_button_proceed_to_checkout', 20);
 add_action('woocommerce_before_cart', 'akuna_cart_progress');
-add_action('woocommerce_proceed_to_checkout', 'akuna_button_proceed_to_checkout', 20);
 add_action('woocommerce_after_quantity_input_field', 'akuna_quantity_plus_sign');
 add_action('woocommerce_before_quantity_input_field', 'akuna_quantity_minus_sign');
+add_action('woocommerce_proceed_to_checkout', 'akuna_button_proceed_to_checkout', 20);
+add_action('woocommerce_proceed_to_checkout', 'akuna_coupon', 15);
 
 /**
  * Checkout Page
