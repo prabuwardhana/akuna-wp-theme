@@ -861,7 +861,26 @@ if (!function_exists('akuna_before_content')) {
         <a href="<?php echo esc_url(wc_get_checkout_url()); ?>" class="checkout-button button alt">
             <?php esc_html_e('Proceed To Checkout', 'woocommerce'); ?>
         </a>
+        <?php
+        }
+    }
+
+    if (!function_exists('akuna_coupon')) {
+
+        /**
+         * Output the proceed to checkout button.
+         */
+        function akuna_coupon()
+        {
+            if (wc_coupons_enabled()) {
+        ?>
+            <div class="coupon">
+                <input form="woocommerce-cart" type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e('Promo code', 'woocommerce'); ?>" />
+                <button form="woocommerce-cart" type="submit" class="button btn-full-width" name="apply_coupon" value="<?php esc_attr_e('Apply coupon', 'woocommerce'); ?>"><?php esc_attr_e('Apply coupon', 'woocommerce'); ?></button>
+                <?php do_action('woocommerce_cart_coupon'); ?>
+            </div>
 <?php
+            }
         }
     }
 
