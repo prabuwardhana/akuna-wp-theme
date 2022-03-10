@@ -56,6 +56,23 @@ if (!function_exists('akuna_before_content')) {
         }
     }
 
+    if (!function_exists('akuna_woocommerce_pagination')) {
+        /**
+         * akuna WooCommerce Pagination
+         * WooCommerce disables the product pagination inside the woocommerce_product_subcategories() function
+         * but since akuna adds pagination before that function is excuted we need a separate function to
+         * determine whether or not to display the pagination.
+         *
+         * @since 1.0.0
+         */
+        function akuna_woocommerce_pagination()
+        {
+            if (woocommerce_products_will_display()) {
+                woocommerce_pagination();
+            }
+        }
+    }
+
     if (!function_exists('akuna_sorting_wrapper')) {
         /**
          * Sorting wrapper
@@ -896,4 +913,44 @@ if (!function_exists('akuna_before_content')) {
         {
             echo '<button type="button" class="minus" >-</button>';
         }
+    }
+
+    function akuna_product_thumbnail_in_checkout($product_name, $cart_item, $cart_item_key)
+    {
+        if (is_checkout()) {
+            $thumbnail      = $cart_item['data']->get_image();
+            $image_html     = '<div class="product-item-thumbnail">' . $thumbnail . '</div> ';
+            $name_html_open = '<div class="cg-checkout-table-product-name">';
+            $product_name   = $image_html . $name_html_open . $product_name;
+        }
+        return $product_name;
+    }
+
+    function shoptimizer_woocommerce_checkout_cart_item_quantity($strong_class_product_quantity_sprintf_times_s_cart_item_quantity_strong, $cart_item, $cart_item_key)
+    {
+
+        $quantity_html_close       = '<div class="clear"></div></div>';
+        $shoptimizer_cart_quantity = $strong_class_product_quantity_sprintf_times_s_cart_item_quantity_strong . $quantity_html_close;
+        return $shoptimizer_cart_quantity;
+    };
+
+    function shoptimizer_coupon_wrapper_start()
+    {
+        echo '<section class="coupon-wrapper">';
+    }
+
+    function shoptimizer_coupon_wrapper_end()
+    {
+        echo '</section>';
+    }
+
+    function custom_override_checkout_fields($fields)
+    {
+
+        unset(
+            $fields['shipping']['shipping_company'],
+            $fields['billing']['billing_company'],
+        );
+
+        return $fields;
     }
