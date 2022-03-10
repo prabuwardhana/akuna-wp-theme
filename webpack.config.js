@@ -7,6 +7,7 @@ const sourceMapEnabled = process.env.NODE_ENV !== "production";
 
 module.exports = {
   entry: {
+    main: path.resolve(__dirname, "src/js/main.js"),
     navigation: path.resolve(__dirname, "src/js/navigation.js"),
     footer: path.resolve(__dirname, "src/js/footer.js"),
   },
@@ -61,9 +62,9 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin({}),
+    // new CleanWebpackPlugin({}),
     new MiniCssExtractPlugin({
-      filename: "./css/megamenu.min.css",
+      filename: "./css/main.css",
     }),
   ],
   devtool: "source-map",
