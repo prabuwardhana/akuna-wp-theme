@@ -165,4 +165,11 @@ add_action('woocommerce_proceed_to_checkout', 'akuna_coupon', 15);
  *
  * @see akuna_cart_progress()
  */
+remove_action('woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10);
 add_action('woocommerce_before_checkout_form', 'akuna_cart_progress', 5);
+add_action('woocommerce_after_checkout_form', 'woocommerce_checkout_coupon_form', 10);
+add_action('woocommerce_after_checkout_form', 'shoptimizer_coupon_wrapper_start', 5);
+add_action('woocommerce_after_checkout_form', 'shoptimizer_coupon_wrapper_end', 99);
+add_filter('woocommerce_cart_item_name', 'akuna_product_thumbnail_in_checkout', 20, 3);
+add_filter('woocommerce_checkout_cart_item_quantity', 'shoptimizer_woocommerce_checkout_cart_item_quantity', 10, 3);
+add_filter('woocommerce_checkout_fields', 'custom_override_checkout_fields');
