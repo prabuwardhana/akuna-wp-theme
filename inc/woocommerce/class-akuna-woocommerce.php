@@ -34,7 +34,8 @@ if (!class_exists('akuna_WooCommerce')) :
             add_filter('wp_enqueue_scripts', array($this, 'add_core_fonts'), 130);
 
             add_filter('comments_template', array($this, 'load_custom_comments_template'), 100);
-            add_filter('woocommerce_locate_template', array($this, 'load_custom_cart_template'), 10, 3);
+            add_filter('template_include', array($this, 'include_akuna_shop_page_template'), 99);
+            add_filter('woocommerce_locate_template', array($this, 'load_akuna_custom_template'), 10, 3);
         }
 
         /**
@@ -180,10 +181,10 @@ if (!class_exists('akuna_WooCommerce')) :
          */
         public function thumbnail_columns()
         {
-            $columns = 4;
+            $columns = 3;
 
             if (!is_active_sidebar('sidebar-1')) {
-                $columns = 5;
+                $columns = 4;
             }
 
             return intval(apply_filters('akuna_product_thumbnail_columns', $columns));
@@ -277,7 +278,24 @@ if (!class_exists('akuna_WooCommerce')) :
         }
 
         /**
-         * Load our custom cat template instead of woocommerce one
+         * include akuna custom shop page template
+         *
+         * @param  string $template         Path to current template file.
+         * @since 1.0.0
+         */
+        public function include_akuna_shop_page_template($template)
+        {
+            if (is_shop()) {
+                $new_template = locate_template(array('inc/woocommerce/templates/akuna-shop-page.php'));
+                if ('' != $new_template) {
+                    return $new_template;
+                }
+            }
+            return $template;
+        }
+
+        /**
+         * Load our custom cart template instead of woocommerce's one
          *
          * @param  string $template         Path to woocommerce template file.
          * @param  string $template_name    Woocommerce template file name.
@@ -285,17 +303,16 @@ if (!class_exists('akuna_WooCommerce')) :
          * @return string                   path to our cart custom template path.
          * @since 1.0.0
          */
-        public function load_custom_cart_template($template, $template_name, $template_path)
+        public function load_akuna_custom_template($template, $template_name, $template_path)
         {
-            // Return the original woocommerce template if it's not cart template
-            if (false == str_contains($template_name, 'cart/cart.php')) {
+            if (basename($template_name) != 'cart.php') {
                 return $template;
             }
 
-            // $template_path initially has the value of "woocommerce/"
-            $template_path = 'templates/';
             // $template_name initially has the value of "cart/cart.php"
             $template_name = 'akuna-cart.php';
+            // $template_path initially has the value of "woocommerce/"
+            $template_path = 'inc/woocommerce/templates/';
 
             $template = locate_template(
                 array(
