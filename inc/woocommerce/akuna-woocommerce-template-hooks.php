@@ -173,3 +173,9 @@ add_action('woocommerce_after_checkout_form', 'shoptimizer_coupon_wrapper_end', 
 add_filter('woocommerce_cart_item_name', 'akuna_product_thumbnail_in_checkout', 20, 3);
 add_filter('woocommerce_checkout_cart_item_quantity', 'shoptimizer_woocommerce_checkout_cart_item_quantity', 10, 3);
 add_filter('woocommerce_checkout_fields', 'custom_override_checkout_fields');
+
+/**
+ * Archive descriptions.
+ */
+remove_action('woocommerce_archive_description', 'woocommerce_taxonomy_archive_description', 10);
+remove_action('woocommerce_archive_description', 'woocommerce_product_archive_description', 10);
