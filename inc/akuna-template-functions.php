@@ -61,13 +61,93 @@ if (!function_exists('akuna_primary_navigation')) {
                 <path fill="black" d="M4,10h24c1.104,0,2-0.896,2-2s-0.896-2-2-2H4C2.896,6,2,6.896,2,8S2.896,10,4,10z M28,14H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,14,28,14z M28,22H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h24c1.104,0,2-0.896,2-2S29.104,22,28,22z" />
             </svg>
         </div>
-    <?php
+        <?php
         wp_nav_menu(
             array(
                 'theme_location'  => 'primary',
                 'container_class' => 'primary-navigation',
             )
         );
+    }
+}
+
+if (!function_exists('akuna_secondary_nav_container')) {
+    /**
+     * The header container
+     */
+    function akuna_secondary_nav_container()
+    {
+        echo '<div class="cat-nav-container">';
+    }
+}
+
+if (!function_exists('akuna_secondary_nav_container_close')) {
+    /**
+     * The header container close
+     */
+    function akuna_secondary_nav_container_close()
+    {
+        echo '</div>';
+    }
+}
+
+if (!function_exists('akuna_secondary_navigation')) {
+    /**
+     * Display Secondary Navigation
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    function akuna_secondary_navigation()
+    {
+        wp_nav_menu(
+            array(
+                'theme_location'  => 'secondary',
+                'container_class' => 'secondary-navigation',
+            )
+        );
+    }
+}
+
+if (!function_exists('akuna_page_navigation')) {
+    /**
+     * Display Page Navigation
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    function akuna_page_navigation($theParent, $testArray)
+    {
+        if ($theParent or $testArray) :
+        ?>
+            <div class="cat-nav-container">
+                <div class="secondary-navigation">
+                    <ul class="menu">
+                        <li class="page-links__title">
+                            <a href="<?php echo get_permalink($theParent); ?>">
+                                <?php
+                                echo get_the_title($theParent);
+                                ?>
+                            </a>
+                        </li>
+                        <?php
+                        if ($theParent) {
+                            $findChildrenOf = $theParent;
+                        } else {
+                            $findChildrenOf = get_the_ID();
+                        }
+
+                        wp_list_pages(array(
+                            'title_li' => NULL,
+                            'child_of' => $findChildrenOf,
+                            'sort_column' => 'menu_order'
+                        ));
+                        ?>
+                    </ul>
+                </div>
+            </div>
+        <?php
+        endif;
     }
 }
 
@@ -79,7 +159,7 @@ if (!function_exists('akuna_site_branding')) {
      */
     function akuna_site_branding()
     {
-    ?>
+        ?>
         <div class="site-branding header-item">
             <?php akuna_site_title_or_logo(); ?>
         </div>
@@ -575,7 +655,6 @@ if (!function_exists('akuna_page_header')) {
         <header class="entry-header">
             <?php
             akuna_post_thumbnail('full');
-            the_title('<h1 class="entry-title">', '</h1>');
             ?>
         </header><!-- .entry-header -->
     <?php
@@ -631,15 +710,17 @@ if (!function_exists('akuna_hero_image_slider')) {
                         </div>
                     </div>
                 <?php endforeach; ?>
-                <div class="navigation">
-                    <i class="fas fa-chevron-left prev-btn"></i>
-                    <i class="fas fa-chevron-right next-btn"></i>
-                </div>
-                <div class="navigation-visibility">
-                    <?php foreach ($settings as $setting) : ?>
-                        <div class="slide-icon"></div>
-                    <?php endforeach; ?>
-                </div>
+                <?php if (count($settings) > 1) : ?>
+                    <div class="navigation">
+                        <i class="fas fa-chevron-left prev-btn"></i>
+                        <i class="fas fa-chevron-right next-btn"></i>
+                    </div>
+                    <div class="navigation-visibility">
+                        <?php foreach ($settings as $setting) : ?>
+                            <div class="slide-icon"></div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif ?>
             </div>
         </section><!-- .entry-header -->
 <?php

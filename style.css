@@ -17,10 +17,11 @@ Tags:         e-commerce, woocommerce
   --txt-color-grey: #6d6d6d;
   --txt-color-white: #ffffff;
   --link-color: #78986a;
+  /* --link-color: #5a6054; */
   --link-color-hover: #3a6328;
   --heading-color: #131315;
-  /* --btn-main-color: #2c2d33; */
   --btn-main-color: #78986a;
+  /* --btn-main-color: #5a6054; */
   --bg-color-white: #ffffff;
   --bg-color-light-grey: #f2f2f2;
   --bg-color-red: #eb1e37;
@@ -36,7 +37,7 @@ Tags:         e-commerce, woocommerce
   box-sizing: border-box;
 }
 html {
-  font-family: "Poppins", sans-serif;
+  font-family: "Gelasio", sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: 170px;
@@ -243,7 +244,7 @@ button,
 input,
 textarea {
   color: var(--txt-color);
-  font-family: "Poppins", "Source Sans Pro", "HelveticaNeue-Light",
+  font-family: "Gelasio", "Source Sans Pro", "HelveticaNeue-Light",
     "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande",
     sans-serif;
   line-height: 1.5;
@@ -252,7 +253,7 @@ textarea {
 }
 select {
   color: initial;
-  font-family: "Poppins", "Source Sans Pro", "HelveticaNeue-Light",
+  font-family: "Gelasio", "Source Sans Pro", "HelveticaNeue-Light",
     "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande",
     sans-serif;
   max-width: 100%;
@@ -266,7 +267,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 300;
+  font-weight: 400;
   margin: 0 0 0.5rem;
   color: var(--heading-color);
 }
@@ -276,7 +277,7 @@ h3 a,
 h4 a,
 h5 a,
 h6 a {
-  font-weight: 300;
+  font-weight: 400;
 }
 h1,
 .alpha {
@@ -341,6 +342,7 @@ hr {
 }
 p {
   margin: 0 0 1.5rem;
+  line-height: 1.75;
 }
 ul {
   list-style: disc;
@@ -441,7 +443,7 @@ button,
 input,
 select,
 textarea {
-  font-size: 100%;
+  font-size: 1rem;
   margin: 0;
 }
 button,
@@ -690,7 +692,7 @@ Site content section
 
 .site-content {
   outline: none;
-  margin: 30px 0;
+  margin: 60px 0;
 }
 .site-content,
 .header-widget-region {
@@ -950,8 +952,8 @@ Site footer
 ====================================
 */
 .site-footer {
-  background-color: var(--bg-color-light-grey);
-  color: var(--txt-color-grey);
+  background-color: #5a6054;
+  color: #fff;
   padding: 2.5rem 0 1.5rem;
 }
 .site-footer h1,
@@ -960,10 +962,35 @@ Site footer
 .site-footer h4,
 .site-footer h5,
 .site-footer h6 {
-  color: var(--txt-color);
+  color: #fff;
+  font-weight: 600;
+}
+.site-footer h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
 }
 .site-footer a {
-  color: var(--link-color);
+  position: relative;
+  color: #fff;
+  transition-duration: 500ms;
+}
+.site-footer a:hover {
+  padding-left: 25px;
+  color: #dd9933;
+}
+.site-footer a:after {
+  transition-duration: 500ms;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: #dd9933;
+  content: "";
+  transform: translateY(-50%);
+}
+.site-footer a:hover:after {
+  width: 15px;
 }
 .site-footer a,
 .site-footer a:hover,
@@ -978,7 +1005,7 @@ Site footer
   display: flex;
   flex-direction: column;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-color-grey);
+  border-bottom: 1px solid #fff;
 }
 .site-footer .footer-widgets .block {
   flex: 1;
@@ -999,6 +1026,7 @@ Widgets
 .widget_archive ul,
 .widget_recent_comments ul,
 .widget_nav_menu ul,
+.widget_block ul,
 .widget_links ul,
 .widget_product_categories ul,
 .widget_layered_nav ul,
@@ -1011,6 +1039,7 @@ Widgets
 .widget_archive ul li,
 .widget_recent_comments ul li,
 .widget_nav_menu ul li,
+.widget_block ul li,
 .widget_links ul li,
 .widget_product_categories ul li,
 .widget_layered_nav ul li,
@@ -1071,18 +1100,20 @@ Single Page
 }
 
 .quantity .qty {
-  width: 2rem;
   height: 44px;
+  width: 3rem;
   text-align: center;
   background-color: transparent;
 }
 
+body.page-template-default,
 body.single-product,
 body.woocommerce-cart,
 body.woocommerce-checkout {
   background-color: #dbe7d7;
 }
 
+body.page-template-default .content-area,
 body.single-product .content-area,
 body.woocommerce-cart .content-area,
 body.woocommerce-checkout .content-area {
@@ -2059,9 +2090,9 @@ ul.checkout-bar li::before {
   color: #fff;
   background: #ddd;
   box-sizing: content-box;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  line-height: 1.75rem;
+  line-height: 1.5rem;
   text-align: center;
 }
 
@@ -2789,7 +2820,7 @@ body #payment .place-order {
 }
 body #payment .place-order .button,
 body .wc-proceed-to-checkout .button.checkout-button {
-  font-size: 19px;
+  font-size: 1rem;
 }
 #payment .place-order .button {
   width: 100%;
@@ -2928,6 +2959,76 @@ header.woocommerce-products-header {
   overflow: hidden;
   margin-bottom: 2em;
 }
+
+/*
+====================================
+Akuna Shop Page
+====================================
+*/
+.shop-featured-image {
+  margin-bottom: 4rem;
+}
+.shop-featured-image img {
+  border-radius: 0.25em;
+  height: 364px;
+  object-fit: cover;
+}
+.product-list-container {
+  display: flex;
+}
+.shop-term-description {
+  flex: 0 0 15em;
+  margin-right: 1em;
+}
+.shop-term-description h2 {
+  font-weight: 600;
+}
+
+/*
+====================================
+Secondary Navigation
+====================================
+*/
+.cat-nav-container {
+  height: 58px;
+  display: flex;
+  align-items: center;
+  background-color: var(--link-color);
+}
+.secondary-navigation {
+  width: 1100px;
+  margin: 0 auto;
+  display: block;
+}
+.secondary-navigation .menu > li:hover > a {
+  text-decoration: none;
+}
+.secondary-navigation .menu a {
+  color: #ffffff;
+  font-weight: 600;
+  transition: all, ease, 0.5s;
+  padding-right: 1rem;
+}
+.secondary-navigation .menu a:hover {
+  color: var(--link-color-hover);
+  text-decoration: none;
+}
+.secondary-navigation .menu li:not(:first-child) a {
+  padding-left: 1rem;
+}
+.secondary-navigation ul {
+  list-style: none;
+  padding-left: 0;
+}
+.secondary-navigation ul li {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+}
+.secondary-navigation ul li:not(:last-child) {
+  border-right: solid 1px #fff;
+}
+
 @media screen and (max-height: 320px) {
   .sf-input-focused .woocommerce-store-notice,
   .sf-input-focused .akuna-handheld-footer-bar {
@@ -2949,8 +3050,9 @@ header.woocommerce-products-header {
   .site-header.sticky {
     width: 100%;
   }
-  .site-header.sticky + .site-content {
-    padding-top: 80px;
+  .page-template-default .site-header.sticky + .site-content,
+  .woocommerce-shop .site-header.sticky + .site-content {
+    padding-top: 140px;
   }
   .site-header.sticky + .site-content,
   .site-header.sticky + .entry-header {
@@ -3197,7 +3299,6 @@ header.woocommerce-products-header {
   }
   table.cart .qty {
     padding: 0.875em;
-    max-width: 3rem;
   }
   table.cart td.product-remove {
     display: table-cell;
