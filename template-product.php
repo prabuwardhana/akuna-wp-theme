@@ -17,7 +17,7 @@ get_header(); ?>
         while (have_posts()) :
             the_post();
 
-            do_action('akuna_page_no_title');
+            do_action('akuna_product_page');
 
         endwhile; // End of the loop.
         ?>

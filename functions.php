@@ -6,6 +6,8 @@
  * @package akuna
  */
 
+define('SCRIPT_DEBUG', true);
+
 /**
  * Assign the akuna version to a var
  */
@@ -21,9 +23,19 @@ if (!isset($content_width)) {
 
 $akuna = (object) array(
     'version'    => $akuna_version,
+    'main'       => require 'inc/class-akuna.php',
+    'customizer' => require 'inc/customizer/class-akuna-customizer.php',
 );
 
 require 'inc/akuna-functions.php';
 require 'inc/akuna-template-hooks.php';
 require 'inc/akuna-template-functions.php';
 require 'inc/wordpress-shims.php';
+
+if (akuna_is_woocommerce_activated()) {
+    $akuna->woocommerce            = require 'inc/woocommerce/class-akuna-woocommerce.php';
+
+    require 'inc/woocommerce/akuna-woocommerce-functions.php';
+    require 'inc/woocommerce/akuna-woocommerce-template-hooks.php';
+    require 'inc/woocommerce/akuna-woocommerce-template-functions.php';
+}

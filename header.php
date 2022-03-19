@@ -47,7 +47,7 @@
              */
             do_action('akuna_header');
 
-            if (is_page_template('template-fullwidth-product.php')) {
+            if (is_shop()) {
                 /**
                  * Functions hooked into akuna_header_secondary action
                  *
@@ -57,16 +57,44 @@
                  */
                 do_action('akuna_header_secondary');
             }
+
+            $theParent = wp_get_post_parent_id(get_the_ID());
+            $testArray = get_pages(array(
+                'child_of' => get_the_ID()
+            ));
+
+            /**
+             * Functions hooked into akuna_header action
+             *
+             * @hooked akuna_secondary_nav_container          - 0
+             * @hooked akuna_primary_navigation_wrapper       - 10
+             * @hooked akuna_secondary_nav_container_close    - 30
+             */
+            do_action('akuna_page_header', $theParent, $testArray);
             ?>
 
         </header><!-- #masthead -->
 
         <?php
         do_action('akuna_before_content');
+
+        if (is_front_page()) {
+            /**
+             * Functions hooked in to akuna_homepage_hero
+             *
+             * @hooked akuna_homepage_content      - 10
+             */
+            do_action('akuna_homepage_hero');
+        }
         ?>
 
         <div id="content" class="site-content" tabindex="-1">
             <div class="col-full">
 
                 <?php
+                /**
+                 * Functions hooked in to akuna_homepage_hero
+                 *
+                 * @hooked akuna_shop_messages      - 15
+                 */
                 do_action('akuna_content_top');

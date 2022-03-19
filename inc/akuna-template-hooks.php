@@ -23,6 +23,7 @@ add_action('akuna_header', 'akuna_header_container_close', 90);
 add_action('akuna_header_secondary', 'akuna_secondary_nav_container', 10);
 add_action('akuna_header_secondary', 'akuna_secondary_navigation', 30);
 add_action('akuna_header_secondary', 'akuna_secondary_nav_container_close', 50);
+add_action('akuna_page_header', 'akuna_page_navigation', 10, 2);
 
 /**
  * Footer
@@ -53,6 +54,22 @@ add_action('akuna_single_post_bottom', 'akuna_post_nav', 50);
 add_action('akuna_single_post_bottom', 'akuna_display_comments', 70);
 
 /**
+ * Homepage
+ *
+ * @see  akuna_homepage_content()
+ */
+add_action('homepage', 'akuna_homepage_content', 10);
+
+/**
+ * Homepage Page Template
+ *
+ * @see  akuna_hero_image_slider()
+ * @see  akuna_page_content()
+ */
+add_action('akuna_homepage_hero', 'akuna_hero_image_slider', 10);
+add_action('akuna_homepage', 'akuna_page_content', 10);
+
+/**
  * Pages
  *
  * @see  akuna_page_header()
@@ -64,5 +81,5 @@ add_action('akuna_page', 'akuna_page_header', 10);
 add_action('akuna_page', 'akuna_page_content', 30);
 add_action('akuna_page', 'akuna_edit_post_link', 50);
 add_action('akuna_page_after', 'akuna_display_comments', 10);
-add_action('akuna_page_no_title', 'akuna_page_content', 10);
-add_action('akuna_page_no_title', 'akuna_edit_post_link', 30);
+add_action('akuna_product_page', 'akuna_page_content', 10);
+add_action('akuna_product_page', 'akuna_edit_post_link', 30);
