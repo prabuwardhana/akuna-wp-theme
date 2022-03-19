@@ -23,6 +23,7 @@ add_action('akuna_header', 'akuna_header_container_close', 90);
 add_action('akuna_header_secondary', 'akuna_secondary_nav_container', 10);
 add_action('akuna_header_secondary', 'akuna_secondary_navigation', 30);
 add_action('akuna_header_secondary', 'akuna_secondary_nav_container_close', 50);
+add_action('akuna_page_header', 'akuna_page_navigation', 10, 2);
 
 /**
  * Footer

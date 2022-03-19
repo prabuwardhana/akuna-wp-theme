@@ -274,7 +274,7 @@ if (!class_exists('akuna_WooCommerce')) :
 
             $template_file_name = 'akuna-single-product-reviews.php';
 
-            return wc_locate_template($template_file_name, '/templates/', '');
+            return wc_locate_template($template_file_name, 'inc/woocommerce/templates/', '');
         }
 
         /**

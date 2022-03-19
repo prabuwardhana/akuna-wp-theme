@@ -333,7 +333,7 @@ if (!class_exists('akuna')) :
                 wp_localize_script('akuna-navigation', 'akunaScreenReaderText', $akuna_l10n);
             }
 
-            if (is_page_template('template-homepage.php') && has_post_thumbnail()) {
+            if (is_front_page()) {
                 wp_enqueue_style('akuna-slider-style', get_template_directory_uri() . '/assets/css/base/slider.css', '', $akuna_version);
                 wp_enqueue_script('akuna-slider-script', get_template_directory_uri() . '/assets/js/slider' . $suffix . '.js', array(), $akuna_version, true);
             }
@@ -354,7 +354,7 @@ if (!class_exists('akuna')) :
             $google_fonts = apply_filters(
                 'akuna_google_font_families',
                 array(
-                    'poppins' => 'Poppins:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400',
+                    'gelasio' => 'Gelasio:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700',
                 )
             );
 

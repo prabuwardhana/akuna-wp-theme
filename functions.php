@@ -24,6 +24,7 @@ if (!isset($content_width)) {
 $akuna = (object) array(
     'version'    => $akuna_version,
     'main'       => require 'inc/class-akuna.php',
+    'customizer' => require 'inc/customizer/class-akuna-customizer.php',
 );
 
 require 'inc/akuna-functions.php';
