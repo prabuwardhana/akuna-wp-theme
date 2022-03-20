@@ -63,6 +63,7 @@ if (!class_exists('akuna_Customizer')) :
                     'akuna_button_alt_background_color' => '#5a6054',
                     'akuna_button_alt_border_color' => '#5a6054',
                     'akuna_button_alt_text_color'   => '#ffffff',
+                    'akuna_background_alt_color'    => '#f9f9f9',
                     'background_color'              => '#dbe7d7',
                 )
             );
@@ -127,6 +128,19 @@ if (!class_exists('akuna_Customizer')) :
             // Move background color setting alongside background image.
             $wp_customize->get_control('background_color')->section  = 'background_image';
             $wp_customize->get_control('background_color')->priority = 20;
+            $wp_customize->add_setting('akuna_background_alt_color');
+            $wp_customize->add_control(
+                new WP_Customize_Color_Control(
+                    $wp_customize,
+                    'akuna_background_alt_color',
+                    array(
+                        'label'    => __('Background Alt Color', 'akuna'),
+                        'section'  => 'background_image',
+                        'settings' => 'akuna_background_alt_color',
+                        'priority' => 30,
+                    )
+                )
+            );
 
             // Change background image section title & priority.
             $wp_customize->get_section('background_image')->title    = __('Background', 'akuna');
@@ -656,6 +670,7 @@ if (!class_exists('akuna_Customizer')) :
         {
             $akuna_theme_mods = array(
                 'background_color'            => akuna_get_content_background_color(),
+                'background_alt_color'        => get_theme_mod('akuna_background_alt_color'),
                 'main_color'                  => get_theme_mod('akuna_main_color'),
                 'link_color'                  => get_theme_mod('akuna_link_color'),
                 'accent_color'                => get_theme_mod('akuna_accent_color'),
@@ -724,6 +739,14 @@ if (!class_exists('akuna_Customizer')) :
 
             ul.products li.product .price {
                 color: ' . $akuna_theme_mods['text_color'] . ';
+            }
+
+            .slider .slide .info h2 {
+                color: ' . $akuna_theme_mods['hero_heading_color'] . ';
+            }
+
+            .slider .slide .info p {
+                color: ' . $akuna_theme_mods['hero_text_color'] . ';
             }
 
             div.quantity button.plus,
@@ -812,12 +835,17 @@ if (!class_exists('akuna_Customizer')) :
             .secondary-navigation .menu a:hover {
                 color: ' . akuna_adjust_color_brightness($akuna_theme_mods['button_background_color'], $darken_factor) . ';
             }
-
-            body.page-template-default,
+            
             body.single-product,
             body.woocommerce-cart,
             body.woocommerce-checkout {
                 background-color: ' . $akuna_theme_mods['background_color'] . ';
+            }
+
+            body.post-type-archive,
+            body.page-template-default,
+            body.page-template-template-homepage {
+                background-color: ' . $akuna_theme_mods['background_alt_color'] . ';
             }
 
             .akuna-product-attr {
