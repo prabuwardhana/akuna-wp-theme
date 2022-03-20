@@ -692,6 +692,7 @@ if (!class_exists('akuna_Customizer')) :
         {
             $akuna_theme_mods = $this->get_akuna_theme_mods();
             $darken_factor    = apply_filters('akuna_darken_factor', -25);
+            $brighten_factor  = apply_filters('akuna_brighten_factor', 25);
 
             $styles = '
             h1,
@@ -783,13 +784,6 @@ if (!class_exists('akuna_Customizer')) :
             .added_to_cart.alt {
                 background-color: ' . $akuna_theme_mods['button_alt_background_color'] . ';
                 border-color: ' . $akuna_theme_mods['button_alt_border_color'] . ';
-            }
-
-            .header-cart .widget_shopping_cart p.total {
-                border-bottom: ' . $akuna_theme_mods['button_border_px'] . 'px solid ' . $akuna_theme_mods['button_alt_border_color'] . ';
-            }
-            .header-cart .widget_shopping_cart .product_list_widget li {
-                border-bottom: ' . $akuna_theme_mods['button_border_px'] . 'px solid ' . $akuna_theme_mods['button_alt_border_color'] . ';
             }
 
             button:hover,
