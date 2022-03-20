@@ -39,7 +39,7 @@ get_header();
                     array(
                         'taxonomy' => 'product_cat',
                         'field'    => 'slug',
-                        'terms'    => $term['name'],
+                        'terms'    => $term['slug'],
                     ),
                 );
 
