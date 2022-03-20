@@ -705,7 +705,6 @@ if (!class_exists('akuna_Customizer')) :
             }
 
             body,
-            button,
             input,
             textarea {
                 color: ' . $akuna_theme_mods['text_color'] . ';
@@ -818,7 +817,7 @@ if (!class_exists('akuna_Customizer')) :
             body.single-product,
             body.woocommerce-cart,
             body.woocommerce-checkout {
-                background-color: ' . $akuna_theme_mods['main_color'] . ';
+                background-color: ' . $akuna_theme_mods['background_color'] . ';
             }
 
             .akuna-product-attr {
