@@ -28,7 +28,7 @@ if (!class_exists('akuna_Customizer')) :
             add_action('customize_register', array($this, 'customize_register'), 10);
             add_action('customize_register', array($this, 'edit_default_customizer_settings'), 99);
             add_filter('kirki/fields', array($this, 'akuna_kirki_fields'));
-            // add_action('wp_enqueue_scripts', array($this, 'add_customizer_css'), 130);
+            add_action('wp_enqueue_scripts', array($this, 'add_customizer_css'), 130);
             add_action('init', array($this, 'default_theme_mod_values'), 10);
         }
 
@@ -42,26 +42,26 @@ if (!class_exists('akuna_Customizer')) :
             return apply_filters(
                 'akuna_setting_default_values',
                 $args = array(
-                    'akuna_heading_color'           => '#333333',
-                    'akuna_text_color'              => '#6d6d6d',
-                    'akuna_accent_color'            => '#7f54b3',
+                    'akuna_heading_color'           => '#131315',
+                    'akuna_text_color'              => '#43454b',
+                    'akuna_accent_color'            => '#dd9933',
                     'akuna_hero_heading_color'      => '#000000',
                     'akuna_hero_text_color'         => '#000000',
                     'akuna_header_background_color' => '#ffffff',
-                    'akuna_header_text_color'       => '#404040',
-                    'akuna_header_link_color'       => '#333333',
-                    'akuna_footer_background_color' => '#f0f0f0',
-                    'akuna_footer_heading_color'    => '#333333',
-                    'akuna_footer_text_color'       => '#6d6d6d',
-                    'akuna_footer_link_color'       => '#333333',
-                    'akuna_button_background_color' => '#eeeeee',
+                    'akuna_header_text_color'       => '#43454b',
+                    'akuna_header_link_color'       => '#78986a',
+                    'akuna_footer_background_color' => '#5a6054',
+                    'akuna_footer_heading_color'    => '#ffffff',
+                    'akuna_footer_text_color'       => '#ffffff',
+                    'akuna_footer_link_color'       => '#dd9933',
+                    'akuna_button_background_color' => '#78986a',
                     'akuna_button_border_px'        => '1',
-                    'akuna_button_border_color'     => '#eeeeee',
-                    'akuna_button_text_color'       => '#333333',
-                    'akuna_button_alt_background_color' => '#333333',
-                    'akuna_button_alt_border_color' => '#333333',
+                    'akuna_button_border_color'     => '#78986a',
+                    'akuna_button_text_color'       => '#ffffff',
+                    'akuna_button_alt_background_color' => '#5a6054',
+                    'akuna_button_alt_border_color' => '#5a6054',
                     'akuna_button_alt_text_color'   => '#ffffff',
-                    'background_color'              => 'ffffff',
+                    'background_color'              => '#dbe7d7',
                 )
             );
         }
@@ -160,12 +160,6 @@ if (!class_exists('akuna_Customizer')) :
                 );
             }
 
-            $wp_customize->add_panel('colors', array(
-                'title' => __('Colors'),
-                'description' => __('Customize your website\'s colors scheme.', 'akuna'),
-                'priority' => 40,
-            ));
-
             /**
              * Hero slider section
              */
@@ -182,9 +176,18 @@ if (!class_exists('akuna_Customizer')) :
 
             $wp_customize->add_section('akuna_shop_page', array(
                 'title'       => __('Shop Page', 'akuna'),
-                'panel'    => 'woocommerce',
+                'panel'       => 'woocommerce',
                 'priority'    => 20,
                 'description' => __('Customize your shop page.', 'akuna'),
+            ));
+
+            /**
+             * Color panel
+             */
+            $wp_customize->add_panel('colors', array(
+                'title'       => __('Colors'),
+                'description' => __('Customize your website\'s colors scheme.', 'akuna'),
+                'priority'    => 40,
             ));
 
             /**
@@ -194,7 +197,7 @@ if (!class_exists('akuna_Customizer')) :
                 'akuna_header',
                 array(
                     'title'       => __('Header', 'akuna'),
-                    'panel' => 'colors',
+                    'panel'       => 'colors',
                     'priority'    => 25,
                     'description' => __('Customize the look & feel of your website header.', 'akuna'),
                 )
@@ -627,33 +630,33 @@ if (!class_exists('akuna_Customizer')) :
          *
          * @return array $akuna_theme_mods The akuna Theme Mods.
          */
-        // public function get_akuna_theme_mods()
-        // {
-        //     $akuna_theme_mods = array(
-        //         'background_color'            => akuna_get_content_background_color(),
-        //         'accent_color'                => get_theme_mod('akuna_accent_color'),
-        //         'hero_heading_color'          => get_theme_mod('akuna_hero_heading_color'),
-        //         'hero_text_color'             => get_theme_mod('akuna_hero_text_color'),
-        //         'header_background_color'     => get_theme_mod('akuna_header_background_color'),
-        //         'header_link_color'           => get_theme_mod('akuna_header_link_color'),
-        //         'header_text_color'           => get_theme_mod('akuna_header_text_color'),
-        //         'footer_background_color'     => get_theme_mod('akuna_footer_background_color'),
-        //         'footer_link_color'           => get_theme_mod('akuna_footer_link_color'),
-        //         'footer_heading_color'        => get_theme_mod('akuna_footer_heading_color'),
-        //         'footer_text_color'           => get_theme_mod('akuna_footer_text_color'),
-        //         'text_color'                  => get_theme_mod('akuna_text_color'),
-        //         'heading_color'               => get_theme_mod('akuna_heading_color'),
-        //         'button_background_color'     => get_theme_mod('akuna_button_background_color'),
-        //         'button_border_px'            => get_theme_mod('akuna_button_border_px'),
-        //         'button_border_color'         => get_theme_mod('akuna_button_border_color'),
-        //         'button_text_color'           => get_theme_mod('akuna_button_text_color'),
-        //         'button_alt_background_color' => get_theme_mod('akuna_button_alt_background_color'),
-        //         'button_alt_border_color'     => get_theme_mod('akuna_button_alt_border_color'),
-        //         'button_alt_text_color'       => get_theme_mod('akuna_button_alt_text_color'),
-        //     );
+        public function get_akuna_theme_mods()
+        {
+            $akuna_theme_mods = array(
+                'background_color'            => akuna_get_content_background_color(),
+                'accent_color'                => get_theme_mod('akuna_accent_color'),
+                'hero_heading_color'          => get_theme_mod('akuna_hero_heading_color'),
+                'hero_text_color'             => get_theme_mod('akuna_hero_text_color'),
+                'header_background_color'     => get_theme_mod('akuna_header_background_color'),
+                'header_link_color'           => get_theme_mod('akuna_header_link_color'),
+                'header_text_color'           => get_theme_mod('akuna_header_text_color'),
+                'footer_background_color'     => get_theme_mod('akuna_footer_background_color'),
+                'footer_link_color'           => get_theme_mod('akuna_footer_link_color'),
+                'footer_heading_color'        => get_theme_mod('akuna_footer_heading_color'),
+                'footer_text_color'           => get_theme_mod('akuna_footer_text_color'),
+                'text_color'                  => get_theme_mod('akuna_text_color'),
+                'heading_color'               => get_theme_mod('akuna_heading_color'),
+                'button_background_color'     => get_theme_mod('akuna_button_background_color'),
+                'button_border_px'            => get_theme_mod('akuna_button_border_px'),
+                'button_border_color'         => get_theme_mod('akuna_button_border_color'),
+                'button_text_color'           => get_theme_mod('akuna_button_text_color'),
+                'button_alt_background_color' => get_theme_mod('akuna_button_alt_background_color'),
+                'button_alt_border_color'     => get_theme_mod('akuna_button_alt_border_color'),
+                'button_alt_text_color'       => get_theme_mod('akuna_button_alt_text_color'),
+            );
 
-        //     return apply_filters('akuna_theme_mods', $akuna_theme_mods);
-        // }
+            return apply_filters('akuna_theme_mods', $akuna_theme_mods);
+        }
 
         /**
          * Get Customizer css.
@@ -661,134 +664,202 @@ if (!class_exists('akuna_Customizer')) :
          * @see get_akuna_theme_mods()
          * @return array $styles the css
          */
-        // public function get_css()
-        // {
-        //     $akuna_theme_mods = $this->get_akuna_theme_mods();
-        //     $darken_factor    = apply_filters('akuna_darken_factor', -25);
+        public function get_css()
+        {
+            $akuna_theme_mods = $this->get_akuna_theme_mods();
+            $darken_factor    = apply_filters('akuna_darken_factor', -25);
 
-        //     $styles = '
-        // 	.site-header,
-        // 	.akuna-handheld-footer-bar,
-        // 	.akuna-handheld-footer-bar ul li > a,
-        // 	.akuna-handheld-footer-bar ul li.search .site-search {
-        // 		background-color: ' . $akuna_theme_mods['header_background_color'] . ';
-        // 	}
+            $styles = '
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: ' . $akuna_theme_mods['heading_color'] . ';
+            }
 
-        // 	.site-title a {
-        // 		color: ' . $akuna_theme_mods['header_link_color'] . ';
-        // 	}
+            body,
+            button,
+            input,
+            textarea {
+                color: ' . $akuna_theme_mods['text_color'] . ';
+            }
 
-        // 	.site-title a:hover {
-        // 		color: ' . akuna_adjust_color_brightness($akuna_theme_mods['header_link_color'], 65) . ';
-        // 	}
+            input[type="text"],
+            input[type="number"],
+            input[type="email"],
+            input[type="tel"],
+            input[type="url"],
+            input[type="password"],
+            input[type="search"],
+            textarea,
+            .input-text {
+                color: ' . $akuna_theme_mods['text_color'] . ';
+            }
 
-        // 	p.site-description,
-        // 	.site-header,
-        // 	.akuna-handheld-footer-bar {
-        // 		color: ' . $akuna_theme_mods['header_text_color'] . ';
-        // 	}
+            ul.products li.product .price {
+                color: ' . $akuna_theme_mods['text_color'] . ';
+            }
 
-        // 	.slider .slide .info h2 {
-        // 		color: ' . $akuna_theme_mods['hero_heading_color'] . ';
-        // 	}
+            div.quantity button.plus,
+            div.quantity button.minus {
+                color: ' . $akuna_theme_mods['text_color'] . ';
+            }
 
-        // 	.slider .slide .info p {
-        // 		color: ' . $akuna_theme_mods['hero_text_color'] . ';
-        // 	}
+            div.quantity {
+                border: solid 1px ' . $akuna_theme_mods['button_border_color'] . ';
+            }
 
-        // 	#comments .comment-list .comment-content .comment-text {
-        // 		background-color: ' . akuna_adjust_color_brightness($akuna_theme_mods['background_color'], -7) . ';
-        // 	}
+            .header-cart .widget_shopping_cart .product_list_widget li a.remove {
+                background-color: ' . $akuna_theme_mods['accent_color'] . ';
+            }
 
-        // 	.pagination .page-numbers li .page-numbers.current {
-        // 		background-color: ' . akuna_adjust_color_brightness($akuna_theme_mods['background_color'], $darken_factor) . ';
-        // 		color: ' . akuna_adjust_color_brightness($akuna_theme_mods['text_color'], -10) . ';
-        // 	}
+            .site-footer a:hover {
+                color: ' . $akuna_theme_mods['accent_color'] . ';
+            }
 
-        // 	h1, h2, h3, h4, h5, h6 {
-        // 		color: ' . $akuna_theme_mods['heading_color'] . ';
-        // 	}
+            .site-footer a:after {
+                background-color: ' . $akuna_theme_mods['accent_color'] . ';
+            }
 
-        // 	.widget h1 {
-        // 		border-bottom-color: ' . $akuna_theme_mods['heading_color'] . ';
-        // 	}
+            a {
+                color: ' . $akuna_theme_mods['header_link_color'] . ';
+            }
 
-        // 	body {
-        // 		color: ' . $akuna_theme_mods['text_color'] . ';
-        // 	}
+            .site-header {
+                background-color: ' . $akuna_theme_mods['header_background_color'] . ';
+            }
 
-        // 	.widget-area .widget a,
-        // 	.hentry .entry-header .posted-on a,
-        // 	.hentry .entry-header .post-author a,
-        // 	.hentry .entry-header .post-comments a,
-        // 	.hentry .entry-header .byline a {
-        // 		color: ' . akuna_adjust_color_brightness($akuna_theme_mods['text_color'], 5) . ';
-        // 	}
+            .site-footer {
+                background-color: ' . $akuna_theme_mods['footer_background_color'] . ';
+            }
 
-        // 	a {
-        // 		color: ' . $akuna_theme_mods['accent_color'] . ';
-        // 	}
+            button,
+            input[type="button"],
+            input[type="reset"],
+            input[type="submit"],
+            .button,
+            .added_to_cart {
+                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+                border-color: ' . $akuna_theme_mods['button_border_color'] . ';
+            }
 
-        // 	a:focus,
-        // 	button:focus,
-        // 	.button.alt:focus,
-        // 	input:focus,
-        // 	textarea:focus,
-        // 	input[type="button"]:focus,
-        // 	input[type="reset"]:focus,
-        // 	input[type="submit"]:focus,
-        // 	input[type="email"]:focus,
-        // 	input[type="tel"]:focus,
-        // 	input[type="url"]:focus,
-        // 	input[type="password"]:focus,
-        // 	input[type="search"]:focus {
-        // 		outline-color: ' . $akuna_theme_mods['accent_color'] . ';
-        // 	}
+            button.cta,
+            button.alt,
+            input[type="button"].cta,
+            input[type="button"].alt,
+            input[type="reset"].cta,
+            input[type="reset"].alt,
+            input[type="submit"].cta,
+            input[type="submit"].alt,
+            .button.cta,
+            .button.alt,
+            .added_to_cart.cta,
+            .added_to_cart.alt {
+                background-color: ' . $akuna_theme_mods['button_alt_background_color'] . ';
+                border-color: ' . $akuna_theme_mods['button_alt_border_color'] . ';
+            }
 
-        // 	button, input[type="button"], input[type="reset"], input[type="submit"], .button, .widget a.button {
-        // 		background-color: ' . $akuna_theme_mods['button_background_color'] . ';
-        // 		border: ' . $akuna_theme_mods['button_border_px'] . 'px solid;
-        // 		border-color: ' . $akuna_theme_mods['button_border_color'] . ';
-        // 		color: ' . $akuna_theme_mods['button_text_color'] . ';
-        // 	}
+            .header-cart .widget_shopping_cart p.total {
+                border-bottom: 1px solid ' . $akuna_theme_mods['button_alt_border_color'] . ';
+            }
+            .header-cart .widget_shopping_cart .product_list_widget li {
+                border-bottom: 1px solid ' . $akuna_theme_mods['button_alt_border_color'] . ';
+            }
 
-        // 	button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover, .button:hover, .widget a.button:hover {
-        // 		background-color: ' . akuna_adjust_color_brightness($akuna_theme_mods['button_background_color'], $darken_factor) . ';
-        // 		border: ' . $akuna_theme_mods['button_border_px'] . 'px solid;
-        // 		border-color: ' . akuna_adjust_color_brightness($akuna_theme_mods['button_border_color'], $darken_factor) . ';
-        // 		color: ' . $akuna_theme_mods['button_text_color'] . ';
-        // 	}
+            button:hover,
+            input[type="button"]:hover,
+            input[type="reset"]:hover,
+            input[type="submit"]:hover,
+            .button:hover,
+            .added_to_cart:hover {
+                background-color: ' . akuna_adjust_color_brightness($akuna_theme_mods['button_background_color'], $darken_factor) . ';
+            }
 
-        // 	button.alt, input[type="button"].alt, input[type="reset"].alt, input[type="submit"].alt, .button.alt, .widget-area .widget a.button.alt {
-        // 		background-color: ' . $akuna_theme_mods['button_alt_background_color'] . ';
-        // 		border: ' . $akuna_theme_mods['button_border_px'] . 'px solid;
-        // 		border-color: ' . $akuna_theme_mods['button_alt_border_color'] . ';
-        // 		color: ' . $akuna_theme_mods['button_alt_text_color'] . ';
-        // 	}
+            button.cta:hover,
+            button.alt:hover,
+            input[type="button"].cta:hover,
+            input[type="button"].alt:hover,
+            input[type="reset"].cta:hover,
+            input[type="reset"].alt:hover,
+            input[type="submit"].cta:hover,
+            input[type="submit"].alt:hover,
+            .button.cta:hover,
+            .button.alt:hover,
+            .added_to_cart.cta:hover,
+            .added_to_cart.alt:hover {
+                background-color: ' . akuna_adjust_color_brightness($akuna_theme_mods['button_alt_background_color'], $darken_factor) . ';
+            }
 
-        // 	button.alt:hover, input[type="button"].alt:hover, input[type="reset"].alt:hover, input[type="submit"].alt:hover, .button.alt:hover, .widget-area .widget a.button.alt:hover {
-        // 		background-color: ' . akuna_adjust_color_brightness($akuna_theme_mods['button_alt_background_color'], $darken_factor) . ';
-        // 		border: ' . $akuna_theme_mods['button_border_px'] . 'px solid;
-        // 		border-color: ' . akuna_adjust_color_brightness($akuna_theme_mods['button_alt_border_color'], $darken_factor) . ';
-        // 		color: ' . $akuna_theme_mods['button_alt_text_color'] . ';
-        // 	}					
+            .secondary-navigation .menu a:hover {
+                color: ' . akuna_adjust_color_brightness($akuna_theme_mods['button_background_color'], $darken_factor) . ';
+            }
 
-        // 	.site-footer {
-        // 		background-color: ' . $akuna_theme_mods['footer_background_color'] . ';
-        // 		color: ' . $akuna_theme_mods['footer_text_color'] . ';
-        // 	}
+            body.page-template-default,
+            body.single-product,
+            body.woocommerce-cart,
+            body.woocommerce-checkout {
+                background-color: ' . $akuna_theme_mods['background_color'] . ';
+            }
 
-        // 	.site-footer a:not(.button):not(.components-button),
-        // 	.site-footer .akuna-handheld-footer-bar a:not(.button):not(.components-button) {
-        // 		color: ' . $akuna_theme_mods['footer_link_color'] . ';
-        // 	}
+            .akuna-product-attr {
+                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+            }
+            
+            .akuna-loop-product__title {
+                color: ' . $akuna_theme_mods['button_background_color'] . ';
+            }
+            
+            .rating-average .rating-box {
+                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+            }
+            .rating-snapshot .bar-container .bar {
+                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+            }
+            
+            .woocommerce-message,
+            .woocommerce-info,
+            .woocommerce-error,
+            .woocommerce-noreviews,
+            p.no-comments {
+                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+            }
+            
+            ul.checkout-bar li.visited::after,
+            ul.checkout-bar::before {
+                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+            }
+            
+            .woocommerce-checkout .checkout-bar li.active::after {
+                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+            }
+            
+            #payment
+            .payment_methods
+            li.wc_payment_method
+            > input[type="radio"]:first-child:checked
+            + label:before,
+            #payment
+            .payment_methods
+            li.woocommerce-PaymentMethod
+            > input[type="radio"]:first-child:checked
+            + label:before,
+            #shipping_method > li > input[type="radio"]:first-child:checked + label:before {
+                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+            }
+            
+            .cat-nav-container {
+                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+            }
+            
+            .header-cart .widget_shopping_cart .product_list_widget li > a:hover {
+                color: ' . $akuna_theme_mods['button_background_color'] . ';
+            }
+        	';
 
-        // 	.site-footer h1, .site-footer h2, .site-footer h3, .site-footer h4, .site-footer h5, .site-footer h6, .site-footer .widget .widget-title, .site-footer .widget .widgettitle {
-        // 		color: ' . $akuna_theme_mods['footer_heading_color'] . ';
-        // 	}';
-
-        //     return apply_filters('akuna_customizer_css', $styles);
-        // }
+            return apply_filters('akuna_customizer_css', $styles);
+        }
 
         /**
          * Add CSS in <head> for styles handled by the theme customizer
@@ -796,10 +867,10 @@ if (!class_exists('akuna_Customizer')) :
          * @since 1.0.0
          * @return void
          */
-        // public function add_customizer_css()
-        // {
-        //     wp_add_inline_style('akuna-style', $this->get_css());
-        // }
+        public function add_customizer_css()
+        {
+            wp_add_inline_style('akuna-style', $this->get_css());
+        }
 
         /**
          * Get site logo.

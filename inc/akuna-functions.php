@@ -65,3 +65,79 @@ function akuna_do_shortcode($tag, array $atts = array(), $content = null)
 
     return call_user_func($shortcode_tags[$tag], $atts, $content, $tag);
 }
+
+/**
+ * Get the content background color
+ * Accounts for the akuna Designer and akuna Powerpack content background option.
+ *
+ * @since  1.0.0
+ * @return string the background color
+ */
+function akuna_get_content_background_color()
+{
+
+    $bg_color = str_replace('#', '', get_theme_mod('background_color'));
+
+    return '#' . $bg_color;
+}
+
+/**
+ * Given an hex colors, returns an array with the colors components.
+ *
+ * @param  string $hex Hex color e.g. #111111.
+ * @return bool        Array with color components (r, g, b).
+ * @since  1.0.0
+ */
+function get_rgb_values_from_hex($hex)
+{
+    // Format the hex color string.
+    $hex = str_replace('#', '', $hex);
+
+    if (3 === strlen($hex)) {
+        $hex = str_repeat(substr($hex, 0, 1), 2) . str_repeat(substr($hex, 1, 1), 2) . str_repeat(substr($hex, 2, 1), 2);
+    }
+
+    // Get decimal values.
+    $r = hexdec(substr($hex, 0, 2));
+    $g = hexdec(substr($hex, 2, 2));
+    $b = hexdec(substr($hex, 4, 2));
+
+    return array(
+        'r' => $r,
+        'g' => $g,
+        'b' => $b,
+    );
+}
+
+/**
+ * Adjust a hex color brightness
+ * Allows us to create hover styles for custom link colors
+ *
+ * @param  strong  $hex     Hex color e.g. #111111.
+ * @param  integer $steps   Factor by which to brighten/darken ranging from -255 (darken) to 255 (brighten).
+ * @param  float   $opacity Opacity factor between 0 and 1.
+ * @return string           Brightened/darkened color (hex by default, rgba if opacity is set to a valid value below 1).
+ * @since  1.0.0
+ */
+function akuna_adjust_color_brightness($hex, $steps, $opacity = 1)
+{
+    // Steps should be between -255 and 255. Negative = darker, positive = lighter.
+    $steps = max(-255, min(255, $steps));
+
+    $rgb_values = get_rgb_values_from_hex($hex);
+
+    // Adjust number of steps and keep it inside 0 to 255.
+    $r = max(0, min(255, $rgb_values['r'] + $steps));
+    $g = max(0, min(255, $rgb_values['g'] + $steps));
+    $b = max(0, min(255, $rgb_values['b'] + $steps));
+
+    if ($opacity >= 0 && $opacity < 1) {
+        return 'rgba(' . $r . ',' . $g . ',' . $b . ',' . $opacity . ')';
+    }
+
+    $r_hex = str_pad(dechex($r), 2, '0', STR_PAD_LEFT);
+    $g_hex = str_pad(dechex($g), 2, '0', STR_PAD_LEFT);
+    $b_hex = str_pad(dechex($b), 2, '0', STR_PAD_LEFT);
+
+    return '#' . $r_hex . $g_hex . $b_hex;
+}
