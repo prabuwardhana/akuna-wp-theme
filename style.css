@@ -1553,11 +1553,17 @@ ul.products::after {
 ul.products {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 ul.products li.product {
   list-style: none;
   margin-left: 0;
   text-align: left;
+}
+ul.products li.product .akuna-product-image img {
+  max-height: 262px;
+  object-fit: cover;
+  object-position: center center;
 }
 ul.products li.product .star-rating,
 ul.products li.product .star-no-rating {
@@ -2941,6 +2947,7 @@ Secondary Navigation
     width: 100%;
   }
   .page-template-default .site-header.sticky + .site-content,
+  .tax-product_tag .site-header.sticky + .site-content,
   .woocommerce-shop .site-header.sticky + .site-content {
     padding-top: 140px;
   }
