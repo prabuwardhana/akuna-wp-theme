@@ -58,7 +58,9 @@
                 do_action('akuna_header_secondary');
             }
 
+            // this will return 0 if not found
             $theParent = wp_get_post_parent_id(get_the_ID());
+            // this will return NULL if not found
             $testArray = get_pages(array(
                 'child_of' => get_the_ID()
             ));
@@ -66,9 +68,7 @@
             /**
              * Functions hooked into akuna_header action
              *
-             * @hooked akuna_secondary_nav_container          - 0
-             * @hooked akuna_primary_navigation_wrapper       - 10
-             * @hooked akuna_secondary_nav_container_close    - 30
+             * @hooked akuna_page_navigation       - 10
              */
             do_action('akuna_page_header', $theParent, $testArray);
             ?>
