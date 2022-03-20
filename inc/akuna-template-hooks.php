@@ -66,7 +66,7 @@ add_action('homepage', 'akuna_homepage_content', 10);
  * @see  akuna_hero_image_slider()
  * @see  akuna_page_content()
  */
-add_action('akuna_homepage_hero', 'akuna_hero_image_slider', 10);
+add_action('akuna_homepage_before_main', 'akuna_hero_image_slider', 10);
 add_action('akuna_homepage', 'akuna_page_content', 10);
 
 /**
