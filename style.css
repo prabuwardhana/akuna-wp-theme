@@ -3037,6 +3037,10 @@ Secondary Navigation
     list-style: none;
     padding: 0;
   }
+  .header-cart .widget_shopping_cart p.total,
+  .header-cart .widget_shopping_cart .product_list_widget li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
   .header-cart .widget_shopping_cart .product_list_widget li::before,
   .header-cart .widget_shopping_cart .product_list_widget li::after {
     content: "";
