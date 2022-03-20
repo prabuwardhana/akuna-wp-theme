@@ -47,7 +47,7 @@
              */
             do_action('akuna_header');
 
-            if (is_shop()) {
+            if (is_shop() || is_product_tag()) {
                 /**
                  * Functions hooked into akuna_header_secondary action
                  *
