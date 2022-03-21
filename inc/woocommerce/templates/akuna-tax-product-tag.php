@@ -8,23 +8,29 @@
 
 get_header();
 
+// get the product tag slug
+$product_tag_slug = akuna_get_product_tag_slug();
+
 ?>
 
 <div id="primary" class="content-area">
 
     <header class="entry-header">
-        <div class="shop-featured-image">
-            <img src="<?php echo get_theme_mod('image_setting_url', ''); ?>" />
+        <?php
+        $current_tags = get_term_by('slug', $product_tag_slug, 'product_tag', 'ARRAY_A');
+        ?>
+        <div class="product-tag-info">
+            <div class="tag-name">
+                <h1><?php echo $current_tags['name'] ?></h1>
+            </div>
+            <div class="tag-description">
+                <p><?php echo $current_tags['description'] ?></p>
+            </div>
         </div>
     </header>
 
     <main id="main" class="site-main" role="main">
         <?php
-        // Extract the product tag slug
-        $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $uri_segments = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
-        $product_tag_slug = array_pop($uri_segments);
-
         $query_args = array(
             'post_type'         => 'product',
             'orderby'           => 'date',
@@ -79,6 +85,12 @@ get_header();
             </div>
         <?php endforeach; ?>
     </main><!-- #main -->
+
+    <footer class="entry-footer">
+        <div class="shop-featured-image">
+            <img src="<?php echo get_theme_mod('image_setting_url', ''); ?>" />
+        </div>
+    </footer>
 </div><!-- #primary -->
 
 <?php
