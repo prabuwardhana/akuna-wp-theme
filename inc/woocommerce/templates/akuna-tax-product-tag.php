@@ -8,16 +8,14 @@
 
 get_header();
 
-// get the product tag slug
-$product_tag_slug = akuna_get_product_tag_slug();
-
+$query_var = get_query_var('product_tag');
 ?>
 
 <div id="primary" class="content-area">
 
     <header class="entry-header">
         <?php
-        $current_tags = get_term_by('slug', $product_tag_slug, 'product_tag', 'ARRAY_A');
+        $current_tags = get_term_by('slug', $query_var, 'product_tag', 'ARRAY_A');
         ?>
         <div class="product-tag-info">
             <div class="tag-name">
@@ -56,7 +54,7 @@ $product_tag_slug = akuna_get_product_tag_slug();
                     array(
                         'taxonomy' => 'product_tag',
                         'field'    => 'slug',
-                        'terms'    => $product_tag_slug,
+                        'terms'    => $query_var,
                     ),
                 );
 
