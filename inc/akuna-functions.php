@@ -141,19 +141,3 @@ function akuna_adjust_color_brightness($hex, $steps, $opacity = 1)
 
     return '#' . $r_hex . $g_hex . $b_hex;
 }
-
-/**
- * Get the product tag slug from the request URI
- * Accounts for the akuna Designer and akuna Powerpack content background option.
- *
- * @since  1.0.0
- * @return string the product tag slug
- */
-function akuna_get_product_tag_slug()
-{
-    // Extract the product tag slug
-    $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-    $uri_segments = explode('/', trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'));
-
-    return array_pop($uri_segments);
-}
