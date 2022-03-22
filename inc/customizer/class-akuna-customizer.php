@@ -42,7 +42,9 @@ if (!class_exists('akuna_Customizer')) :
             return apply_filters(
                 'akuna_setting_default_values',
                 $args = array(
+                    'akuna_main_color'              => '#78986a',
                     'akuna_heading_color'           => '#131315',
+                    'akuna_link_color'              => '#dd9933',
                     'akuna_text_color'              => '#43454b',
                     'akuna_accent_color'            => '#dd9933',
                     'akuna_hero_heading_color'      => '#000000',
@@ -61,6 +63,7 @@ if (!class_exists('akuna_Customizer')) :
                     'akuna_button_alt_background_color' => '#5a6054',
                     'akuna_button_alt_border_color' => '#5a6054',
                     'akuna_button_alt_text_color'   => '#ffffff',
+                    'akuna_background_alt_color'    => '#f9f9f9',
                     'background_color'              => '#dbe7d7',
                 )
             );
@@ -125,6 +128,19 @@ if (!class_exists('akuna_Customizer')) :
             // Move background color setting alongside background image.
             $wp_customize->get_control('background_color')->section  = 'background_image';
             $wp_customize->get_control('background_color')->priority = 20;
+            $wp_customize->add_setting('akuna_background_alt_color');
+            $wp_customize->add_control(
+                new WP_Customize_Color_Control(
+                    $wp_customize,
+                    'akuna_background_alt_color',
+                    array(
+                        'label'    => __('Background Alt Color', 'akuna'),
+                        'section'  => 'background_image',
+                        'settings' => 'akuna_background_alt_color',
+                        'priority' => 30,
+                    )
+                )
+            );
 
             // Change background image section title & priority.
             $wp_customize->get_section('background_image')->title    = __('Background', 'akuna');
@@ -189,6 +205,22 @@ if (!class_exists('akuna_Customizer')) :
                 'description' => __('Customize your website\'s colors scheme.', 'akuna'),
                 'priority'    => 40,
             ));
+
+            /**
+             * General section
+             */
+            $wp_customize->add_section(
+                'akuna_general',
+                array(
+                    'title'       => __('General', 'akuna'),
+                    'panel'       => 'colors',
+                    'priority'    => 25,
+                    'description' => __('Customize the look & feel of your website in general.', 'akuna'),
+                )
+            );
+
+            $wp_customize->add_setting('akuna_main_color');
+            $wp_customize->add_setting('akuna_link_color');
 
             /**
              * Header section
@@ -274,6 +306,28 @@ if (!class_exists('akuna_Customizer')) :
         public function akuna_kirki_fields($fields)
         {
             /**
+             * Main Color
+             */
+            $fields[] = array(
+                'type'        => 'color',
+                'settings'    => 'akuna_main_color',
+                'label'       => esc_html__('Main color', 'akuna'),
+                'section'     => 'akuna_general',
+                'priority'    => 20,
+                'description' => esc_html__('Main color for your theme', 'akuna'),
+            );
+            /**
+             * Link Color
+             */
+            $fields[] = array(
+                'type'        => 'color',
+                'settings'    => 'akuna_link_color',
+                'label'       => esc_html__('Link color', 'akuna'),
+                'section'     => 'akuna_general',
+                'priority'    => 20,
+                'description' => esc_html__('Link color for your theme', 'akuna'),
+            );
+            /**
              * Heading Color
              */
             $fields[] = array(
@@ -283,7 +337,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_typography',
                 'priority'    => 20,
                 'description' => esc_html__('Heading color for your theme', 'akuna'),
-                'default'     => apply_filters('akuna_default_heading_color', '#484c51'),
             );
 
             /**
@@ -296,7 +349,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_typography',
                 'priority'    => 30,
                 'description' => esc_html__('Text color for your theme', 'akuna'),
-                'default'     => apply_filters('akuna_default_text_color', '#43454b'),
             );
 
             /**
@@ -309,7 +361,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_typography',
                 'priority'    => 40,
                 'description' => esc_html__('Accent or link color for your theme', 'akuna'),
-                'default'     => apply_filters('akuna_default_accent_color', '#7f54b3'),
             );
 
             /**
@@ -322,7 +373,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_typography',
                 'priority'    => 50,
                 'description' => esc_html__('Heading color for the hero banner.', 'akuna'),
-                'default'     => apply_filters('akuna_default_hero_heading_color', '#000000'),
             );
 
             /**
@@ -335,7 +385,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_typography',
                 'priority'    => 60,
                 'description' => esc_html__('Text color for the hero banner.', 'akuna'),
-                'default'     => apply_filters('akuna_default_hero_text_color', '#000000'),
             );
 
             /**
@@ -348,7 +397,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_header',
                 'priority'    => 10,
                 'description' => esc_html__('Background color for the header.', 'akuna'),
-                'default'     => apply_filters('akuna_default_header_background_color', '#ffffff'),
                 'choices'     => [
                     'alpha' => true,
                 ],
@@ -364,7 +412,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_header',
                 'priority'    => 20,
                 'description' => esc_html__('Text color in the header.', 'akuna'),
-                'default'     => apply_filters('akuna_default_header_text_color', '#9aa0a7'),
             );
 
             /**
@@ -377,7 +424,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_header',
                 'priority'    => 30,
                 'description' => esc_html__('Link color in the header.', 'akuna'),
-                'default'     => apply_filters('akuna_default_header_link_color', '#d5d9db'),
             );
 
             /**
@@ -390,7 +436,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_footer',
                 'priority'    => 10,
                 'description' => esc_html__('Background color for the footer.', 'akuna'),
-                'default'     => apply_filters('akuna_default_footer_background_color', '#f0f0f0'),
                 'choices'     => [
                     'alpha' => true,
                 ],
@@ -406,7 +451,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_footer',
                 'priority'    => 20,
                 'description' => esc_html__('Heading color in the footer.', 'akuna'),
-                'default'     => apply_filters('akuna_default_footer_heading_color', '#494c50'),
             );
 
             /**
@@ -419,7 +463,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_footer',
                 'priority'    => 30,
                 'description' => esc_html__('Text color in the footer.', 'akuna'),
-                'default'     => apply_filters('akuna_default_footer_text_color', '#61656b'),
             );
 
             /**
@@ -432,7 +475,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_footer',
                 'priority'    => 40,
                 'description' => esc_html__('Link color in the footer.', 'akuna'),
-                'default'     => apply_filters('akuna_default_footer_link_color', '#2c2d33'),
             );
 
             /**
@@ -462,7 +504,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_buttons',
                 'priority'    => 10,
                 'description' => esc_html__('Background color for the main button.', 'akuna'),
-                'default'     => apply_filters('akuna_default_button_background_color', '#96588a'),
                 'choices'     => [
                     'alpha' => true,
                 ],
@@ -478,7 +519,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_buttons',
                 'priority'    => 20,
                 'description' => esc_html__('Border color for the main button.', 'akuna'),
-                'default'     => apply_filters('akuna_default_button_border_color', '#ffffff'),
             );
 
             /**
@@ -491,7 +531,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_buttons',
                 'priority'    => 30,
                 'description' => esc_html__('Text color for the main button.', 'akuna'),
-                'default'     => apply_filters('akuna_default_button_text_color', '#ffffff'),
             );
 
             /**
@@ -504,7 +543,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_buttons',
                 'priority'    => 40,
                 'description' => esc_html__('Background color for the alternate button.', 'akuna'),
-                'default'     => apply_filters('akuna_default_button_alt_background_color', '#2c2d33'),
                 'choices'     => [
                     'alpha' => true,
                 ],
@@ -520,7 +558,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_buttons',
                 'priority'    => 50,
                 'description' => esc_html__('Border color for the alternate button.', 'akuna'),
-                'default'     => apply_filters('akuna_default_button_alt_border_color', '#2c2d33'),
             );
 
             /**
@@ -533,7 +570,6 @@ if (!class_exists('akuna_Customizer')) :
                 'section'     => 'akuna_buttons',
                 'priority'    => 60,
                 'description' => esc_html__('Text color for the alternate button.', 'kirki'),
-                'default'     => apply_filters('akuna_default_button_alt_text_color', '#ffffff'),
             );
 
             /**
@@ -634,6 +670,9 @@ if (!class_exists('akuna_Customizer')) :
         {
             $akuna_theme_mods = array(
                 'background_color'            => akuna_get_content_background_color(),
+                'background_alt_color'        => get_theme_mod('akuna_background_alt_color'),
+                'main_color'                  => get_theme_mod('akuna_main_color'),
+                'link_color'                  => get_theme_mod('akuna_link_color'),
                 'accent_color'                => get_theme_mod('akuna_accent_color'),
                 'hero_heading_color'          => get_theme_mod('akuna_hero_heading_color'),
                 'hero_text_color'             => get_theme_mod('akuna_hero_text_color'),
@@ -668,6 +707,7 @@ if (!class_exists('akuna_Customizer')) :
         {
             $akuna_theme_mods = $this->get_akuna_theme_mods();
             $darken_factor    = apply_filters('akuna_darken_factor', -25);
+            $brighten_factor  = apply_filters('akuna_brighten_factor', 25);
 
             $styles = '
             h1,
@@ -680,7 +720,6 @@ if (!class_exists('akuna_Customizer')) :
             }
 
             body,
-            button,
             input,
             textarea {
                 color: ' . $akuna_theme_mods['text_color'] . ';
@@ -700,6 +739,14 @@ if (!class_exists('akuna_Customizer')) :
 
             ul.products li.product .price {
                 color: ' . $akuna_theme_mods['text_color'] . ';
+            }
+
+            .slider .slide .info h2 {
+                color: ' . $akuna_theme_mods['hero_heading_color'] . ';
+            }
+
+            .slider .slide .info p {
+                color: ' . $akuna_theme_mods['hero_text_color'] . ';
             }
 
             div.quantity button.plus,
@@ -761,13 +808,6 @@ if (!class_exists('akuna_Customizer')) :
                 border-color: ' . $akuna_theme_mods['button_alt_border_color'] . ';
             }
 
-            .header-cart .widget_shopping_cart p.total {
-                border-bottom: 1px solid ' . $akuna_theme_mods['button_alt_border_color'] . ';
-            }
-            .header-cart .widget_shopping_cart .product_list_widget li {
-                border-bottom: 1px solid ' . $akuna_theme_mods['button_alt_border_color'] . ';
-            }
-
             button:hover,
             input[type="button"]:hover,
             input[type="reset"]:hover,
@@ -795,27 +835,32 @@ if (!class_exists('akuna_Customizer')) :
             .secondary-navigation .menu a:hover {
                 color: ' . akuna_adjust_color_brightness($akuna_theme_mods['button_background_color'], $darken_factor) . ';
             }
-
-            body.page-template-default,
+            
             body.single-product,
             body.woocommerce-cart,
             body.woocommerce-checkout {
                 background-color: ' . $akuna_theme_mods['background_color'] . ';
             }
 
+            body.post-type-archive,
+            body.page-template-default,
+            body.page-template-template-homepage {
+                background-color: ' . $akuna_theme_mods['background_alt_color'] . ';
+            }
+
             .akuna-product-attr {
-                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+                background-color: ' . $akuna_theme_mods['main_color'] . ';
             }
             
             .akuna-loop-product__title {
-                color: ' . $akuna_theme_mods['button_background_color'] . ';
+                color: ' . $akuna_theme_mods['main_color'] . ';
             }
             
             .rating-average .rating-box {
-                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+                background-color: ' . $akuna_theme_mods['main_color'] . ';
             }
             .rating-snapshot .bar-container .bar {
-                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+                background-color: ' . $akuna_theme_mods['main_color'] . ';
             }
             
             .woocommerce-message,
@@ -823,16 +868,16 @@ if (!class_exists('akuna_Customizer')) :
             .woocommerce-error,
             .woocommerce-noreviews,
             p.no-comments {
-                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+                background-color: ' . $akuna_theme_mods['main_color'] . ';
             }
             
             ul.checkout-bar li.visited::after,
             ul.checkout-bar::before {
-                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+                background-color: ' . $akuna_theme_mods['main_color'] . ';
             }
             
             .woocommerce-checkout .checkout-bar li.active::after {
-                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+                background-color: ' . $akuna_theme_mods['main_color'] . ';
             }
             
             #payment
@@ -846,15 +891,15 @@ if (!class_exists('akuna_Customizer')) :
             > input[type="radio"]:first-child:checked
             + label:before,
             #shipping_method > li > input[type="radio"]:first-child:checked + label:before {
-                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+                background-color: ' . $akuna_theme_mods['main_color'] . ';
             }
             
             .cat-nav-container {
-                background-color: ' . $akuna_theme_mods['button_background_color'] . ';
+                background-color: ' . $akuna_theme_mods['main_color'] . ';
             }
             
             .header-cart .widget_shopping_cart .product_list_widget li > a:hover {
-                color: ' . $akuna_theme_mods['button_background_color'] . ';
+                color: ' . akuna_adjust_color_brightness($akuna_theme_mods['main_color'], $darken_factor) . ';
             }
         	';
 

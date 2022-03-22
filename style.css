@@ -1467,9 +1467,6 @@ Product image section
   padding: 6px 0;
   width: 46px;
 }
-.related .akuna-product-image img {
-  max-height: 350px !important;
-}
 
 /*
 ====================================
@@ -1553,11 +1550,17 @@ ul.products::after {
 ul.products {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 }
 ul.products li.product {
   list-style: none;
   margin-left: 0;
   text-align: left;
+}
+ul.products li.product .akuna-product-image img {
+  max-height: 262px;
+  object-fit: cover;
+  object-position: center center;
 }
 ul.products li.product .star-rating,
 ul.products li.product .star-no-rating {
@@ -2878,6 +2881,26 @@ Akuna Shop Page
 
 /*
 ====================================
+Akuna Taxonomy Product Tag
+====================================
+*/
+.product-tag-info {
+  padding: 2rem;
+  background: #dd9933;
+  color: #fff;
+  border-radius: 0.25rem;
+  margin-bottom: 2.5rem;
+}
+.product-tag-info .tag-name h1 {
+  font-weight: 600;
+  color: #fff;
+}
+.product-tag-info .tag-description p {
+  margin: 0;
+}
+
+/*
+====================================
 Secondary Navigation
 ====================================
 */
@@ -2941,6 +2964,7 @@ Secondary Navigation
     width: 100%;
   }
   .page-template-default .site-header.sticky + .site-content,
+  .tax-product_tag .site-header.sticky + .site-content,
   .woocommerce-shop .site-header.sticky + .site-content {
     padding-top: 140px;
   }
@@ -3036,6 +3060,10 @@ Secondary Navigation
   .header-cart .widget_shopping_cart .product_list_widget {
     list-style: none;
     padding: 0;
+  }
+  .header-cart .widget_shopping_cart p.total,
+  .header-cart .widget_shopping_cart .product_list_widget li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   }
   .header-cart .widget_shopping_cart .product_list_widget li::before,
   .header-cart .widget_shopping_cart .product_list_widget li::after {

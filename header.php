@@ -47,7 +47,7 @@
              */
             do_action('akuna_header');
 
-            if (is_shop()) {
+            if (is_shop() || is_product_tag()) {
                 /**
                  * Functions hooked into akuna_header_secondary action
                  *
@@ -77,15 +77,6 @@
 
         <?php
         do_action('akuna_before_content');
-
-        if (is_front_page()) {
-            /**
-             * Functions hooked in to akuna_homepage_hero
-             *
-             * @hooked akuna_homepage_content      - 10
-             */
-            do_action('akuna_homepage_hero');
-        }
         ?>
 
         <div id="content" class="site-content" tabindex="-1">

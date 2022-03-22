@@ -8,13 +8,22 @@
 
 get_header();
 
+$query_var = get_query_var('product_tag');
 ?>
 
 <div id="primary" class="content-area">
 
     <header class="entry-header">
-        <div class="shop-featured-image">
-            <img src="<?php echo get_theme_mod('image_setting_url', ''); ?>" />
+        <?php
+        $current_tags = get_term_by('slug', $query_var, 'product_tag', 'ARRAY_A');
+        ?>
+        <div class="product-tag-info">
+            <div class="tag-name">
+                <h1><?php echo $current_tags['name'] ?></h1>
+            </div>
+            <div class="tag-description">
+                <p><?php echo $current_tags['description'] ?></p>
+            </div>
         </div>
     </header>
 
@@ -36,10 +45,16 @@ get_header();
             <div id="<?php echo $term['slug'] ?>" class="product-list-container">
                 <?php
                 $query_args['tax_query'] = array(
+                    'relation' => 'AND',
                     array(
                         'taxonomy' => 'product_cat',
                         'field'    => 'slug',
                         'terms'    => $term['slug'],
+                    ),
+                    array(
+                        'taxonomy' => 'product_tag',
+                        'field'    => 'slug',
+                        'terms'    => $query_var,
                     ),
                 );
 
@@ -68,6 +83,12 @@ get_header();
             </div>
         <?php endforeach; ?>
     </main><!-- #main -->
+
+    <footer class="entry-footer">
+        <div class="shop-featured-image">
+            <img src="<?php echo get_theme_mod('image_setting_url', ''); ?>" />
+        </div>
+    </footer>
 </div><!-- #primary -->
 
 <?php
