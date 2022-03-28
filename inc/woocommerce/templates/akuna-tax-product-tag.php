@@ -16,13 +16,27 @@ $query_var = get_query_var('product_tag');
     <header class="entry-header">
         <?php
         $current_tags = get_term_by('slug', $query_var, 'product_tag', 'ARRAY_A');
+        $thumbnail_id = absint(get_term_meta($current_tags["term_id"], 'thumbnail_id', true));
+        $sized_image = image_downsize($thumbnail_id, 'woocommerce_thumbnail');
+
+        if ($thumbnail_id) {
+            $image = $sized_image[0];
+        } else {
+            $image = wc_placeholder_img_src();
+        }
+
         ?>
-        <div class="product-tag-info">
-            <div class="tag-name">
-                <h1><?php echo $current_tags['name'] ?></h1>
+        <div class="product-tag-banner-container">
+            <div class="product-tag-img">
+                <img src="<?php echo esc_url($image); ?>" />
             </div>
-            <div class="tag-description">
-                <p><?php echo $current_tags['description'] ?></p>
+            <div class="product-tag-info">
+                <div class="tag-name">
+                    <h1><?php echo $current_tags['name'] ?></h1>
+                </div>
+                <div class="tag-description">
+                    <p><?php echo $current_tags['description'] ?></p>
+                </div>
             </div>
         </div>
     </header>

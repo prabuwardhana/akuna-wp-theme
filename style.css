@@ -2884,19 +2884,29 @@ Akuna Shop Page
 Akuna Taxonomy Product Tag
 ====================================
 */
-.product-tag-info {
-  padding: 2rem;
+.product-tag-banner-container {
   background: #dd9933;
   color: #fff;
   border-radius: 0.25rem;
   margin-bottom: 2.5rem;
+  display: flex;
+  justify-content: space-between;
 }
-.product-tag-info .tag-name h1 {
+.product-tag-banner-container .tag-name h1 {
   font-weight: 600;
   color: #fff;
 }
-.product-tag-info .tag-description p {
+.product-tag-banner-container .tag-description p {
   margin: 0;
+}
+.product-tag-img {
+  flex: 0 0 20%;
+}
+.product-tag-img img {
+  object-fit: cover;
+}
+.product-tag-info {
+  padding: 2rem;
 }
 
 /*
