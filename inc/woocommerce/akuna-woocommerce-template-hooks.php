@@ -73,6 +73,9 @@ add_action('woocommerce_after_single_product_summary', 'akuna_product_images_sum
 add_action('woocommerce_after_single_product_summary', 'akuna_single_product_review', 15);
 add_action('woocommerce_after_single_product_summary', 'akuna_upsell_display', 25);
 
+add_filter('woocommerce_product_tabs', 'woo_remove_product_tabs', 98);
+add_filter('woocommerce_product_tabs', 'custom_product_tabs');
+
 add_action('woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_link_open', 5);
 add_action('woocommerce_shop_loop_item_title', 'akuna_template_loop_product_title', 10);
 add_action('woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_link_close', 15);

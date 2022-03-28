@@ -326,6 +326,69 @@ if (!function_exists('akuna_before_content')) {
         }
     }
 
+    /**
+     * Remove product data tabs
+     */
+    if (!function_exists('woo_remove_product_tabs')) {
+        function woo_remove_product_tabs($tabs)
+        {
+            unset($tabs['additional_information']);
+            unset($tabs['reviews']);
+
+            return $tabs;
+        }
+    }
+
+    // Create custom tabs in product single pages
+    if (!function_exists('custom_product_tabs')) {
+        function custom_product_tabs($tabs)
+        {
+            global $post;
+            $product_ingredients = get_post_meta($post->ID, '_akuna_ingredients_wysiwyg', true);
+            $product_goodtoknow    = get_post_meta($post->ID, '_akuna_goodtoknow_wysiwyg', true);
+            if (!empty($product_ingredients))
+                $tabs['ingredients_tab'] = array(
+                    'title'    => __('Ingredients And Science', 'woocommerce'),
+                    'priority' => 40,
+                    'callback' => 'ingredients_product_tab_content'
+                );
+            if (!empty($product_goodtoknow))
+                $tabs['goodtoknow_tab'] = array(
+                    'title'    => __('Good To Know', 'woocommerce'),
+                    'priority' => 50,
+                    'callback' => 'goodtoknow_product_tab_content'
+                );
+
+            return $tabs;
+        }
+    }
+
+    // Add content to custom tab in product single pages (1)
+    if (!function_exists('ingredients_product_tab_content')) {
+        function ingredients_product_tab_content()
+        {
+            global $post;
+            $product_ingredients = get_post_meta($post->ID, '_akuna_ingredients_wysiwyg', true);
+            if (!empty($product_ingredients)) {
+                // Updated to apply the_content filter to WYSIWYG content
+                echo apply_filters('the_content', $product_ingredients);
+            }
+        }
+    }
+
+    // Add content to custom tab in product single pages (2)
+    if (!function_exists('goodtoknow_product_tab_content')) {
+        function goodtoknow_product_tab_content()
+        {
+            global $post;
+            $product_goodtoknow = get_post_meta($post->ID, '_akuna_goodtoknow_wysiwyg', true);
+            if (!empty($product_goodtoknow)) {
+                // Updated to apply the_content filter to WYSIWYG content
+                echo apply_filters('the_content', $product_goodtoknow);
+            }
+        }
+    }
+
     if (!function_exists('akuna_single_product_review_summary')) {
         /**
          * Display product review/s and review form
